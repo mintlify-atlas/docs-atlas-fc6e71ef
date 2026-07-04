@@ -1,0 +1,132 @@
+---
+title: "Decision Log (04): choices already taken and in effect"
+sidebarTitle: "Decision Log"
+description: "04_decision_log.txt records D-xx decisions that have already won against a real alternative and are already in effect in the project."
+---
+
+`04_decision_log.txt` is not a place for good ideas, strong hypotheses, or likely next directions. It is the record of choices the project has already made — choices that beat a real alternative, are already in effect, and can be explained in terms of what they change and what they would cost if wrong. The core test for `04` is simple but strict: you can only write here if you can state what the decision won against. If you cannot state that, you do not have a decision yet.
+
+## What 04 is for
+
+This file keeps the record of decisions already taken. Write here what has already won, what it won against, and when it would make sense to reopen it. It does not collect good ideas — it collects choices the project is already treating as real.
+
+## The key test
+
+<Note>
+If you cannot write `won against`, you usually are not in 04 yet. A strong sentence is not a decision. A plausible direction is not a decision. A well-reasoned preference is not a decision. A decision has already beaten a real alternative and is already in effect.
+</Note>
+
+## What goes here
+
+| Content | Why it belongs here |
+|---|---|
+| Decisions already taken | This file exists to record what the project has truly chosen |
+| Choices that have beaten a real alternative | Without a won comparison there is no clean decision yet |
+| Lines the project is already using or treating as true | They are no longer only intentions |
+| Decisions for which you can state what they touch, why they won, and what risk opens if wrong | A decision is only strong if you can read its consequences and cost |
+
+## What does NOT go here
+
+| What | Where it belongs | Why |
+|---|---|---|
+| Preferences | Nowhere in Signal Rail | A preference is not enough to make a decision |
+| Promising hypotheses | `05_latent_ideas.txt` | They matter but have not won yet |
+| Strong ideas that have not yet won | `05_latent_ideas.txt` | Not decisions yet |
+| Lines not yet truly in the work | Nowhere in Signal Rail | A decision should already be influencing the project |
+| Elegant backlog or premature anticipation | Nowhere in Signal Rail | Widens the file with things that have not won |
+
+## Entry template fields
+
+Local entries in `04` use **only `D-xx` IDs**. IDs are never reused, even if an entry is removed or archived. The entries zone applies: new live entries belong inside `--- ENTRIES START ---` / `--- ENTRIES END ---`.
+
+| Field | What to write |
+|---|---|
+| `id` | Stable D-xx identifier, never reused |
+| `date` | When the decision was taken or formally recorded |
+| `state` | How closed or reopened the decision currently is |
+| `decision` | The live sentence, not the long story |
+| `won against` | The real alternative it beat — required |
+| `touches` | Which parts of the project it moves |
+| `links to` | Sources or nodes that help explain it (canonical references only) |
+| `external reference` | Useful files or references outside the canonical set — context but no canonical authority |
+| `impact` | What truly changes |
+| `why` | Why it won |
+| `risk if wrong` | The cost or distortion if the decision was premature |
+| `reopening trigger` | What would have to happen to reopen it seriously |
+
+If one of these fields cannot be closed without invention, the entry is probably not ready to be here yet.
+
+## Possible states
+
+| State | Meaning |
+|---|---|
+| `freeze` | Very difficult to reopen |
+| `strong but open` | It has won, but can still be refined |
+| `in rework` | It exists, but its shape is not closed yet |
+| `reopened` | It used to be live, but is now under revision |
+
+## The ENTRIES START/END zone and scaffolding rule
+
+```
+--- ENTRIES START ---
+[TEMPLATE ONLY]
+[DECISION]
+[short label]
+- id: D-xx
+- date:
+- state:
+- decision:
+- won against:
+- touches:
+- links to:
+- external reference:
+- impact:
+- why:
+- risk if wrong:
+- reopening trigger:
+--- ENTRIES END ---
+```
+
+`[TEMPLATE ONLY]` in the entries zone is scaffolding only. It does not count as a live decision entry. The marker contract must be valid: exactly one start marker, exactly one end marker, correct order.
+
+## Trigger rule
+
+`04` may be updated only when a `won against` can be stated for a decision already in effect. An AI suggestion or a strong preference is not a decision. A deduced decision — one the system infers from patterns — is not a decision. Only choices that have actually beaten a real alternative and entered the project qualify.
+
+## 04 vs 05: decision vs idea
+
+<CardGroup cols={2}>
+  <Card title="04 — Decision Log" icon="scale-balanced">
+    Records what has already won and is already in effect. Requires a stated alternative that was beaten. Not brainstorming. Not deduced.
+  </Card>
+  <Card title="05 — Latent Ideas" icon="seedling">
+    Holds what matters but has not yet won. The right home for promising hypotheses and strong ideas that are not yet decisions.
+  </Card>
+</CardGroup>
+
+Keeping this distinction clean protects both files. A decision recorded too early loses credibility because the `won against` cannot be stated. An idea that enters `04` too early may create false commitments that constrain the project before it has genuinely chosen.
+
+## Typical errors
+
+<Warning>
+- Using 04 as an elegant backlog
+- Recording something as a decision when it is only convincing latent material
+- Skipping `won against` and losing the true perimeter of the choice
+- Treating an AI suggestion or a strong preference as if it were already a decision
+- Using 04 to anticipate a line that has not really entered the work yet
+</Warning>
+
+<CardGroup cols={2}>
+  <Card title="Protocol Freeze (02)" icon="snowflake" href="/rails/protocol-freeze">
+    Identity constants — harder to reopen than even a freeze-state decision in 04.
+  </Card>
+  <Card title="Master Working (03)" icon="fire" href="/rails/master-working">
+    Live state — a line may appear in 03 before it graduates to 04.
+  </Card>
+  <Card title="Latent Ideas (05)" icon="seedling" href="/rails/latent-ideas">
+    The correct holding place for strong ideas that haven't won yet.
+  </Card>
+  <Card title="ID Families Reference" icon="id-card" href="/reference/id-families">
+    Full reference for D-xx and all other Signal Rail ID families.
+  </Card>
+</CardGroup>

@@ -1,0 +1,144 @@
+---
+title: "Routing and promoting Signal Rail project material"
+sidebarTitle: "Routing & Promotion"
+description: "How Signal Rail routes material by nature, stability, and authority — not convenience — and what must be true before any promotion is safe."
+---
+
+Signal Rail routes material by asking three questions in strict order: what is this unit, how stable is it, and where does it belong? None of these questions can be skipped, and none of them can be substituted with a shortcut — "this sounds strong", "this file is clean", or "this came up in conversation". Routing by convenience is exactly the failure mode Signal Rail is built to prevent. A strong sentence is not a decision. A plausible direction is not live work. Continuity is not the same thing as truth. Every promotion is a structural act that changes what the project claims is real.
+
+---
+
+## The routing sequence
+
+<Steps>
+  <Step title="Close what the unit IS">
+    Before routing anything, classify the unit — not the file it came from. One file can contain units that belong to different canonical containers. Ask: is this identity, a stable constant, current live work, an already-won decision, live but unresolved material, technical topology, continuity support, inactive but useful, or closed history?
+  </Step>
+  <Step title="Close how stable it is">
+    Once the nature of the unit is closed, ask how stable it is. Can it be reopened easily? Is it already in effect? Is it still mobile? Is it still resolving? The stability of a unit determines how strong a canonical container it belongs in. Do not promote to a stronger container than the unit's stability can support.
+  </Step>
+  <Step title="Close where it belongs">
+    Only after nature and stability are both closed do you close the destination. Route to the file that governs the level that matches the unit's nature and stability. Do not route by which file is nearest, which file is currently open, or which file contains material that looks similar.
+  </Step>
+</Steps>
+
+---
+
+## Routing rules
+
+Signal Rail is explicit about how routing decisions must not be made:
+
+- **Classify units, not files.** A file's name or role does not determine where its contents belong. Read the units inside and classify each one.
+- **Do not route by apparent importance.** A unit that seems critical may still be latent. A unit that seems minor may already be a won decision.
+- **Do not route by writing quality.** A well-written paragraph is not a signal of canonical level.
+- **Do not route by conversational momentum.** The fact that something was just discussed, agreed to, or praised does not mean it has won against an alternative or entered effect.
+
+---
+
+## Level rules
+
+| If the material is… | Route to |
+|---|---|
+| Project identity — defines what the project is | `01_orientation.txt` |
+| Hard-to-reopen constant — removing it would change project identity | `02_protocol_freeze.txt` |
+| Current live work — already guiding present work | `03_master_working.txt` |
+| Already-won decision — has beaten a real alternative and is already in effect | `04_decision_log.txt` |
+| Live but unresolved — matters, but still needs motion or placement | `05_latent_ideas.txt` |
+| Technical topology — where to enter, what is sensitive, what is minimally required to work safely | `08_surface_map.txt` |
+| Continuity support — mainly for handoff or re-entry, not canonical truth | `09_handoff_reentry.txt` |
+| Not active now, could still matter later | `98_parking.txt` |
+| Closed, historical, or no longer live | `99_archive.txt` |
+
+---
+
+## Non-promotion rules
+
+<Warning>
+These are hard stops. None of them are advisory. If any of these conditions apply, do not promote the material.
+
+- **Clarity is not authority.** A clear and well-expressed unit is not authorized to enter a canonical container just because it is clear.
+- **Strength is not promotion.** A strong idea or direction has not been promoted until it has won against a real alternative and entered effect.
+- **A summary is not a source.** A summary of a decision is not the decision. Route from the source, not from a summary of it.
+- **A strong sentence is not a decision.** A sentence that sounds decisive has not entered `04` until the decision is already in effect.
+- **An elegant structure is not freeze.** A well-organized framework is not an identity constant just because it is well-organized.
+- **A plausible line is not live work.** A direction that could become live work has not entered `03` until it is already guiding current work.
+- **If destination is not closed enough, do not force promotion.** When routing is ambiguous, the safe choice is always `05`. Forced promotion to the wrong level damages the canonical structure.
+</Warning>
+
+---
+
+## Safe hold
+
+If material is still live but unresolved — it matters, it has not been decided, and it is not yet guiding current work — hold it in `05_latent_ideas.txt`.
+
+`05` is a controlled interim container, not a dump zone. Material in `05` should carry a note of its strongest plausible level (what it might become) and what is still preventing it from moving. This keeps live material visible without locking it into a level it has not earned.
+
+<Note>
+**The convergence rule:** If a unit is converged — nature, stability, and destination are all clear — promote it to the correct canonical container. If it is not converged, keep it live in the correct interim container (`05`) with a clear next step recorded alongside it. Do not leave converged material in `05`, and do not force unconverged material out of `05` into a stronger container.
+</Note>
+
+---
+
+## Level transitions
+
+Each level transition has a defined condition. Skipping a condition is a protocol violation.
+
+| Transition | Condition required |
+|---|---|
+| → `01` | Unit defines what the project is |
+| → `02` | Unit is an identity-level constant that should be hard to reopen; removing it would change project identity |
+| `05` → `03` | Material has moved from unresolved to actively guiding current live work |
+| `05` → `04` | Material has resolved as a won decision already in effect |
+| `03` → `04` | The live line has won against a real alternative and is already in effect; `03` may show the line before `04` records it |
+| `97` → `05` / `98` / `99` | Field finding is routed after its capture pass; lateral capture only, not permanent memory |
+| `98` → `05` / `03` | Parked material becomes live again; re-enters through the correct canonical level |
+| → `99` | Material is closed, historical, duplicate, or no longer live; `99` is terminal |
+
+---
+
+## The write gate
+
+Writing to any canonical file is only safe when all seven conditions are true simultaneously. If one gate fails, stop and ask.
+
+| Gate | Condition |
+|---|---|
+| 1 | Destination is clear |
+| 2 | Level is clear |
+| 3 | Authority is clear |
+| 4 | Mode allows writing |
+| 5 | Source live file was read in the current session |
+| 6 | Target live file was read in the current session |
+| 7 | If target is append-driven (`04/05/08/09/97/98/99`): exactly one valid `--- ENTRIES START ---` / `--- ENTRIES END ---` pair is present, and local `[TEMPLATE ONLY]` scaffolding is preserved and not treated as a live entry |
+
+---
+
+## Failure modes Signal Rail prevents
+
+Signal Rail is strict about routing and promotion because project material becomes dangerous when level and authority blur. These are the specific failures the routing and promotion rules exist to block:
+
+- A strong sentence becoming a decision
+- A live blocker becoming project identity
+- A temporary solution becoming freeze
+- A hypothesis entering current work too early
+- A handoff note becoming canonical truth
+- A technical map becoming orientation
+- A clean rewrite becoming less true than the messy source
+- A deployed instance being mistaken for the host project
+
+None of these failures announce themselves. They happen through individually reasonable-looking choices — a helpful summary, a confident suggestion, a clean rewrite — that each move material into the wrong canonical container. The routing sequence, the non-promotion rules, and the write gate exist to stop each of them at the moment they would otherwise occur.
+
+---
+
+## The `unearth` operation
+
+`unearth` is a defined Signal Rail operation that applies specifically to `05_latent_ideas.txt`. When entries in `05` have been sitting live but unresolved for long enough that their status needs to be reviewed, the `unearth` operation opens that review.
+
+For each entry under `unearth`, the agent reviews the entry and chooses one of three outcomes:
+
+| Outcome | Meaning | Action |
+|---|---|---|
+| **absorb** | The unit is now converged; it has a clear canonical destination | Move it to the correct canonical container (`03`, `04`, `01`, `02`, or `08`) |
+| **park** | The unit is no longer live but is still potentially useful | Move it to `98_parking.txt` |
+| **leave alive** | The unit is still live and unresolved; it still belongs in `05` | Leave it in `05` with a refreshed next step if possible |
+
+`unearth` does not authorize bulk promotion. Each entry is reviewed individually. If the destination of an entry is still not clear enough after review, it stays in `05` — it does not get forced into a stronger container just because it has been in `05` for a long time.

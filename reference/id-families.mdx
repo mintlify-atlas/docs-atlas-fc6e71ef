@@ -1,0 +1,118 @@
+---
+title: "ID families reference: F-xx, D-xx, L-xx, P-xx, A-xx"
+sidebarTitle: "ID Families"
+description: "Signal Rail's local ID system, the five identifier families, cross-file reference rules, and how to cite IDs without polluting the citing file."
+---
+
+Signal Rail assigns a unique identifier family to each append-driven canonical file that holds discrete, referenceable entries. These IDs create stable, human-readable anchors inside each file — so that a decision, a freeze point, a latent idea, a parked item, or an archived entry can be cited from elsewhere in the system without ambiguity. IDs are intentionally local: they carry authority only inside their own container family, and a cross-file citation remains a reference, never a new entry.
+
+## Why IDs exist
+
+Without stable local identifiers, cross-file pointing degrades into free-text paraphrase. You cannot reliably say "this latent idea was informed by that decision" if neither has a fixed anchor. Signal Rail solves this with a compact, file-scoped numbering scheme: each family uses a two-digit sequential counter (`F-01`, `D-03`, `L-07`, etc.) that remains constant once assigned.
+
+IDs exist for two purposes:
+1. **Stable internal reference** — so entries in a file can be cited by the operating agent, the operator, or other canonicals without relying on line numbers or text excerpts.
+2. **Cross-file pointing without pollution** — so an entry in `05_latent_ideas.txt` can say `links to: D-03` without that reference creating a new D-xx entry inside `05`.
+
+## The five ID families
+
+### F-xx — Protocol Freeze (`02_protocol_freeze.txt`)
+
+F-xx IDs mark identity-level constants: the points that, if removed, would make the project stop being itself. The freeze file has a hard maximum of **five active entries** (F-01 through F-05). This constraint is intentional — freeze is for the smallest possible set of genuinely hard-to-reopen constants, not for strategy or strong preferences.
+
+```text
+F-01  [first identity constant]
+F-02  [second identity constant]
+```
+
+### D-xx — Decision Log (`04_decision_log.txt`)
+
+D-xx IDs mark decisions that have already been taken, have already beaten a real alternative, and are already in effect. There is no stated maximum; entries are added sequentially as decisions are recorded. A D-xx entry must be able to state what it won against.
+
+```text
+D-01  [first recorded decision]
+D-02  [second recorded decision]
+```
+
+### L-xx — Latent Ideas (`05_latent_ideas.txt`)
+
+L-xx IDs mark live but unresolved material: ideas, directions, or lines that matter but are still mobile. The latent ideas file supports two entry types — **Sparks** and **Ideas** — but both share the same L-xx ID family. The distinction is in the entry type field, not in the ID prefix.
+
+```text
+L-01  type: Spark    [a signal or thread to keep visible]
+L-02  type: Idea     [a direction still under consideration]
+```
+
+### P-xx — Parking (`98_parking.txt`)
+
+P-xx IDs mark material that is useful but not currently active: suspended plans, out-of-time paths, or items that were relevant once and may become relevant again. Parked material is not dead — it is held safely outside the live canonical surfaces.
+
+```text
+P-01  [first parked item]
+P-02  [second parked item]
+```
+
+### A-xx — Archive (`99_archive.txt`)
+
+A-xx IDs mark closed, superseded, or no-longer-live material. Once an entry is archived, it leaves the active canonical surface and becomes historical record. Archive IDs are sequential and permanent.
+
+```text
+A-01  [first archived entry]
+A-02  [second archived entry]
+```
+
+## Family summary table
+
+| File | ID Family | Format | Example |
+|---|---|---|---|
+| `02_protocol_freeze.txt` | F-xx | F-01 to F-05 (max 5) | `F-02` |
+| `04_decision_log.txt` | D-xx | D-01, D-02, … (no max) | `D-07` |
+| `05_latent_ideas.txt` | L-xx | L-01, L-02, … (no max) | `L-03` |
+| `98_parking.txt` | P-xx | P-01, P-02, … (no max) | `P-04` |
+| `99_archive.txt` | A-xx | A-01, A-02, … (no max) | `A-11` |
+
+Files without ID families — `01`, `03`, `06`, `07`, `08`, `09`, `97`, and all tooling and marker files — do not use numbered entry identifiers.
+
+## Local ID rule
+
+IDs are **local to their container family**. A D-xx ID belongs to `04_decision_log.txt`. An L-xx ID belongs to `05_latent_ideas.txt`. When one file cites an ID from another file, that citation does not create a new entry in the citing file, and it does not make the cited ID a local identifier in the citing file.
+
+> Citing D-01 inside an L-xx entry does not produce a second D-01. The L-xx entry holds a reference; the D-01 lives only in `04`.
+
+## `links to` vs `external reference`
+
+Signal Rail distinguishes two citation types for cross-file and external pointing:
+
+**`links to`** — used for canonical, internal, or explicitly host-safe references that the system should validate as part of canonical reading. When an L-xx entry cites a decision, it uses `links to: D-03`. This signals a relationship the system should honour and verify.
+
+**`external reference`** — used for references outside the canonical set or outside the local surface (a URL, an external document, a third-party source). External references are useful but carry no canonical authority by default.
+
+```text
+L-04  type: Idea
+      title: Scoped version tracking
+      links to: D-02
+      external reference: https://semver.org
+```
+
+In this example, `D-02` is a canonical cross-file reference (`links to`); the semver URL is informational only (`external reference`). Neither creates a new local ID in `05`.
+
+## Cross-file reference pattern
+
+When citing a foreign ID inside an entry, use the `links to:` field with the full ID. The foreign ID retains its authority only in its home file.
+
+```text
+L-07  type: Spark
+      title: Unified surface naming
+      links to: D-04, F-01
+      note: Depends on the naming decision and the identity freeze point.
+```
+
+`D-04` and `F-01` are references here. They cannot be modified through this citation, and they do not become new L-xx entries.
+
+<Warning>
+  Do not reuse a D-xx identifier as a local Latent Ideas ID. Do not invent IDs out of sequence. Do not skip numbers. Once an ID is assigned, it is permanent — even if the entry is later archived or parked, its original ID is retired, not reused.
+</Warning>
+
+<Tip>
+  If you are unsure whether material is ready to become a D-xx entry, hold it in `05_latent_ideas.txt` under an L-xx ID and note its **gravity** — the strongest plausible canonical level it might reach. A high gravity (02 or 04) signals it needs human validation before promotion.
+</Tip>

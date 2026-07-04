@@ -1,0 +1,207 @@
+---
+title: "Bootstrap Signal Rail on Windows with init_signal_rail.bat"
+sidebarTitle: "Windows Installer"
+description: "Run the Windows BAT and PowerShell bootstrap scripts to copy, patch, and confirm a new governed Signal Rail instance in one automated pass."
+---
+
+The Windows bootstrap is the recommended way to create a Signal Rail instance on Windows. Running `init_signal_rail.bat` launches a short interactive session: you provide a target directory and an optional project name, and the paired PowerShell script copies all 17 canonical files, auto-patches the date and project name into the right canonicals, reports what was created or skipped, and prints the recommended entry steps — all without manual file handling. The scripts can also be called directly from PowerShell if you prefer to bypass the BAT launcher.
+
+## Prerequisites
+
+Before running the bootstrap, confirm:
+
+- **Windows OS** — the BAT launcher is Windows-only; on other platforms use [manual copy](/bootstrap/manual-copy).
+- **PowerShell** — the BAT calls `powershell -ExecutionPolicy Bypass`. PowerShell must be available on the system path.
+- **Both scripts in the same folder** — `init_signal_rail.bat` and `init_signal_rail.ps1` must exist in the same directory (the Signal Rail source folder). The BAT checks for `init_signal_rail.ps1` at launch and exits with an error if it is missing.
+
+## Running the bootstrap
+
+<Steps>
+  <Step title="Launch init_signal_rail.bat">
+    Double-click `init_signal_rail.bat` in Windows Explorer, or run it from a Command Prompt:
+
+    ```bat
+    init_signal_rail.bat
+    ```
+
+    The console window opens and prints:
+
+    ```text
+    SIGNAL RAIL BOOTSTRAP
+
+    This launcher starts the bootstrap of a new Signal Rail instance.
+    The real logic lives in init_signal_rail.ps1.
+    ```
+  </Step>
+  <Step title="Enter the target directory">
+    The script prompts:
+
+    ```text
+    Paste the target directory:
+    ```
+
+    Enter the full path to the folder where you want the instance to be created. Paste or type the path and press Enter. If you leave this blank, the operation is cancelled immediately:
+
+    ```text
+    No directory was entered. Operation cancelled.
+    ```
+  </Step>
+  <Step title="Enter the host project name (optional)">
+    The script prompts:
+
+    ```text
+    Host project name (optional):
+    ```
+
+    If you provide a name, the PowerShell script will patch it into the `- project name:` field in both `01_orientation.txt` and `03_master_working.txt`. If you leave it blank, those fields remain at their template defaults for you to fill in by hand.
+  </Step>
+  <Step title="PowerShell script runs">
+    The BAT delegates all logic to the PowerShell script using:
+
+    ```bat
+    powershell -NoProfile -ExecutionPolicy Bypass -File "init_signal_rail.ps1" -TargetPath "..." -ProjectName "..."
+    ```
+
+    The script runs, copies files, applies patches, and prints a summary. See [What the PowerShell script does](#what-the-powershell-script-does) below for the full detail.
+  </Step>
+  <Step title="Read the exit summary">
+    On success (exit code 0), the BAT prints:
+
+    ```text
+    Bootstrap completed.
+    Recommended next steps:
+    1. Read 00_runtime_entry.txt first.
+    2. Read 06_ai_to_ai.txt after entry is valid.
+    3. Close host project, working object, and mode.
+    4. Fill 01_orientation.txt and 03_master_working.txt first.
+    5. Continue from the textual system and use the canonicals by level.
+    6. Use 97_field_findings.txt only when you want to keep lateral findings readable
+       before routing or discarding them.
+    ```
+
+    On failure, it prints `Bootstrap not completed. Code: <n>`.
+  </Step>
+</Steps>
+
+## Calling the PowerShell script directly
+
+You do not have to use the BAT. You can call `init_signal_rail.ps1` directly from a PowerShell prompt:
+
+```powershell
+.\init_signal_rail.ps1 -TargetPath "C:\path\to\your\project" -ProjectName "My Project"
+```
+
+`-TargetPath` is mandatory. `-ProjectName` is optional. The script behavior is identical whether launched via the BAT or called directly.
+
+## What the PowerShell script does
+
+### 1. Path normalization and safety check
+
+The script resolves both the source folder (the location of `init_signal_rail.ps1`) and the target path to fully-qualified paths using `[System.IO.Path]::GetFullPath()`, then strips trailing backslashes. Before doing anything else, it compares the two resolved paths. If they match, it throws an error and stops:
+
+```text
+The target directory matches the Signal Rail source folder. Choose a different folder.
+```
+
+### 2. Canonical file list
+
+The script maintains the exact list of 17 files to copy:
+
+```text
+00_runtime_entry.txt
+README.txt
+AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt
+01_orientation.txt
+02_protocol_freeze.txt
+03_master_working.txt
+04_decision_log.txt
+05_latent_ideas.txt
+06_ai_to_ai.txt
+07_guided_prompts_test.txt
+08_surface_map.txt
+09_handoff_reentry.txt
+97_field_findings.txt
+98_parking.txt
+99_archive.txt
+init_signal_rail.bat
+init_signal_rail.ps1
+```
+
+### 3. Target directory creation
+
+If the target directory does not exist, the script creates it with `New-Item -ItemType Directory` before copying any files.
+
+### 4. Overwrite check
+
+The script scans the target directory for any of the 17 canonical files that already exist. If it finds any, it asks:
+
+```text
+Existing Signal Rail files were found. Do you want to overwrite them? (yes/no)
+```
+
+The prompt loops until you enter exactly `yes` or `no`. Answering `yes` allows the script to overwrite existing files. Answering `no` causes existing files to be skipped while new files are still copied.
+
+### 5. File copy
+
+For each of the 17 canonical files, the script:
+
+1. Checks that the source file exists in the Signal Rail source folder.
+2. Checks whether the target file already exists.
+3. Copies the file (creating new or overwriting, based on the overwrite decision; skips if the file exists and overwrite was declined).
+4. Records each file as created, overwritten, or skipped.
+
+### 6. Auto-patching
+
+After copying, the script applies two automatic patches to the copied files:
+
+**Date patch (`03_master_working.txt`):** The script reads today's date in `yyyy-MM-dd` format and replaces the bare `- date:` line with `- date: <today>`. This happens whenever `03_master_working.txt` was just created or overwritten.
+
+**Project name patch (`01_orientation.txt` and `03_master_working.txt`):** If a project name was provided, the script replaces the bare `- project name:` line in each file with `- project name: <name>`. This applies only to files that were created or overwritten in the current run.
+
+### 7. Summary output
+
+The script prints a completion summary:
+
+```text
+Signal Rail bootstrap completed in: C:\path\to\your\project
+Files created: 00_runtime_entry.txt, README.txt, ...
+Files overwritten: (if any)
+Files skipped: (if any)
+Files customized: 03_master_working.txt, 01_orientation.txt
+```
+
+It then prints the full recommended entry sequence (see [After bootstrap](#after-bootstrap) below).
+
+## Exit codes
+
+| Code | Meaning |
+|---|---|
+| `0` | Bootstrap completed successfully |
+| non-zero | Bootstrap not completed; reason printed to console |
+
+## After bootstrap
+
+<Steps>
+  <Step title="Read 00_runtime_entry.txt first">
+    This governs valid entry and correct system reading. It must be read before the system is used operationally.
+  </Step>
+  <Step title="Read 06_ai_to_ai.txt after entry is valid">
+    The lateral kernel activates Signal Rail protocol. It governs how the agent reads, stops, asks, routes, and writes inside the instance.
+  </Step>
+  <Step title="Close host project, working object, and mode">
+    Reading does not authorize writing. Understanding does not authorize promotion. Close the frame before substantive action.
+  </Step>
+  <Step title="Fill 01_orientation.txt and 03_master_working.txt">
+    The bootstrap script patches the date and project name automatically. Fill the rest: project identity, perimeter, current live state, dominant blocker, and next sensible move. Describe the host project — not Signal Rail — in `01_orientation.txt`.
+  </Step>
+  <Step title="Continue from the textual system using canonicals by level">
+    Use each file for its own purpose. Do not route material by convenience — route by nature, stability, and authority.
+  </Step>
+  <Step title="Use 97_field_findings.txt for lateral captures">
+    Use this file only when you want to keep lateral findings readable before routing or discarding them. It is not project memory.
+  </Step>
+</Steps>
+
+<Note>
+  `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` is copied into your instance folder. It marks this folder as the deployed Signal Rail tool surface, not the host project itself. An AI agent that reads this marker must still close the host project, working object, and authority independently before substantive action.
+</Note>

@@ -1,0 +1,190 @@
+---
+title: "Runtime Entry (00): Signal Rail's mandatory entry gate"
+sidebarTitle: "Runtime Entry"
+description: "00_runtime_entry.txt must be read first. It closes valid entry and governs how the system may be read before the kernel becomes operative."
+---
+
+`00_runtime_entry.txt` is the first file in the Signal Rail reading order, and its position is not incidental. Before any canonical surface can be meaningfully used, before the lateral kernel (`06_ai_to_ai.txt`) becomes operative, and before any substantive action is permitted, the agent must pass through the entry gate this file defines. It is not an introduction to the project — it governs how the system may be entered, what must be read first, which conditions must be satisfied, and what to do when those conditions cannot be met.
+
+## Purpose
+
+`00_runtime_entry.txt` is the runtime entry manual of Signal Rail. It governs valid entry and correct system reading. `06_ai_to_ai.txt` governs execution after entry has become valid.
+
+The split is deliberate: if an omission causes bad entry or a bad reading of the system, it belongs in `00`. If an omission causes bad movement after valid entry has already been confirmed, it belongs in `06`. If both seem true, keep only the entry threshold in `00` and keep the operative procedure in `06`.
+
+## The core rule
+
+<Warning>
+Do not begin from a target file. Do not begin from a guess. Do not begin from the nearest visible surface. Do not act before entry validity is closed.
+</Warning>
+
+The first task upon entering a Signal Rail instance is not to solve. It is to close the minimum safe frame. You are entering a governance system, not the governed domain by default — the system does not automatically coincide with the current object of work.
+
+## System map
+
+`00` carries the definitive map of all Signal Rail surfaces and their governance scope.
+
+**Canonical surfaces**
+
+| File | Governs |
+|---|---|
+| `01_orientation.txt` | Project identity, perimeter, and reading frame |
+| `02_protocol_freeze.txt` | Hard-to-reopen identity constants |
+| `03_master_working.txt` | Current live state |
+| `04_decision_log.txt` | Already-won decisions already in effect |
+| `05_latent_ideas.txt` | Live unresolved material |
+| `08_surface_map.txt` | Technical topology, entrypoints, sensitive surfaces, critical deps |
+| `09_handoff_reentry.txt` | Continuity and re-entry support between sessions |
+
+**Lateral surfaces**
+
+| File | Governs |
+|---|---|
+| `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` | Instance marker only — does not identify host project or authority |
+| `97_field_findings.txt` | Temporary finding capture, not project memory |
+| `98_parking.txt` | Useful but not live material |
+| `99_archive.txt` | Historical or closed material |
+
+**Authority rule:** canonical surfaces do not have equal authority. Each canonical governs its own level only. Lateral surfaces do not override canonicals. `09_handoff_reentry.txt` supports continuity but does not override canonical truth. In conflict, the file that governs the touched level decides the reading boundary.
+
+**ID families:**
+- `02` uses `F-xx`
+- `04` uses `D-xx`
+- `05` uses `L-xx`
+- `98` uses `P-xx`
+- `99` uses `A-xx`
+
+## Activation threshold
+
+Entry is valid only after **all** of the following conditions are closed:
+
+<Steps>
+  <Step title="System identified">
+    You have recognised that you are operating inside a Signal Rail governance system.
+  </Step>
+  <Step title="Host project closed">
+    The host project is closed enough for the task at hand.
+  </Step>
+  <Step title="Working object closed">
+    The current working object is closed enough for the task at hand.
+  </Step>
+  <Step title="Minimum read complete">
+    The mandatory read sequence has been completed (see below).
+  </Step>
+  <Step title="Mode, scope, and authority closed">
+    Mode, scope, and authority are all closed enough for the task. If an append-driven canonical will be touched, its entries contract must be valid: one `--- ENTRIES START ---` / `--- ENTRIES END ---` pair in correct order, local template present as scaffold, no malformed markers.
+  </Step>
+</Steps>
+
+### Mandatory read order
+
+1. Read `00_runtime_entry.txt`
+2. Read `06_ai_to_ai.txt`
+3. Read `01_orientation.txt`
+4. Read `03_master_working.txt`
+
+### Conditional reads
+
+| Condition | Read |
+|---|---|
+| Folder may be a deployed instance | `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` |
+| Identity, freeze, or structure may be touched | `02_protocol_freeze.txt` |
+| Decisions may be touched | `04_decision_log.txt` |
+| Technical surface, entrypoints, sensitive files, or deps may be touched | `08_surface_map.txt` |
+| Continuity or restart matters | `09_handoff_reentry.txt` |
+| Unresolved live material is under review | `05_latent_ideas.txt` |
+| Active findings are explicitly relevant | `97_field_findings.txt` |
+
+## False entrypoints
+
+<Warning>
+- Do not start from the file named first by the user.
+- Do not start from continuity as if it were truth.
+- Do not start from findings as if they were memory.
+- Do not start from any file before closing frame, mode, and minimum read.
+</Warning>
+
+A task arriving before minimum read is complete does not authorize skipping minimum read.
+
+## Permissions
+
+<CardGroup cols={2}>
+  <Card title="Allowed immediately" icon="check">
+    Orientation reading · minimum read completion · source comparison · uncertainty declaration · frame closure · task clarification · extraction without promotion
+  </Card>
+  <Card title="Not allowed immediately" icon="xmark">
+    Canonical writing · canonical rewrite · promotion across levels · freeze edits · decision recording · structural touch · self-authorized scope expansion · completion by invention
+  </Card>
+</CardGroup>
+
+## Stop-and-ask conditions
+
+Stop and ask before proceeding when any of the following are true:
+
+- Host project is unclear
+- Current working object is unclear
+- Touched level is unclear
+- Mode is unclear
+- Authority is unclear
+- Scope is unclear
+- Live source is unclear
+- Entries contract is unclear on a touched append-driven canonical
+- Classification could change meaning
+- Promotion could change structure or continuity
+- Canonicals conflict
+- More than one valid reading remains
+
+<Note>
+Do not authorize writing because something looks clear. Do not authorize promotion because something sounds strong. Do not infer authority from cleanliness, recency, completeness, or elegance.
+</Note>
+
+## Recovery states
+
+| State | Meaning | Next correct move |
+|---|---|---|
+| `entry-valid` | All activation conditions are closed | Move to `06_ai_to_ai.txt` — Identity State |
+| `blocked` | Authority, scope, or mode is unclear | Stop and ask for closure of the unclear condition |
+| `uninitialized-canonical-state` | `01` and `03` are still template-like and do not close identity or live state | Stop canonical interpretation; ask operator for initialization instructions |
+| `divergent` | More than one valid reading remains | Do not promote; return the smallest safe reading and what remains open |
+
+If an uninitialized canonical state is discovered mid-task, stop and ask. Do not interpret template-like canonicals as fully live authority surfaces and do not promote as if the system were already initialized.
+
+### Restart path
+
+If a closed gate reopens during a task, stop treating execution as valid and re-enter through:
+
+1. `00_runtime_entry.txt` section 3
+2. `06_ai_to_ai.txt` — Identity State
+3. `01_orientation.txt`
+4. `03_master_working.txt`
+5. Additional conditional surfaces only if triggered again
+
+## Valid shortest path
+
+<Steps>
+  <Step title="Identify the system">
+    Confirm you are operating inside a Signal Rail governance system.
+  </Step>
+  <Step title="Identify host project and working object">
+    Close the host project and the current working object enough for the task.
+  </Step>
+  <Step title="Complete minimum read">
+    Read `00_runtime_entry.txt`, then `06_ai_to_ai.txt`, then `01_orientation.txt`, then `03_master_working.txt`.
+  </Step>
+  <Step title="Test entry validity">
+    Confirm all activation threshold conditions are met.
+  </Step>
+  <Step title="If entry-valid">
+    Move to `06_ai_to_ai.txt` — Identity State and begin operative work.
+  </Step>
+  <Step title="If uninitialized-canonical-state">
+    Stop and ask operator for initialization instructions.
+  </Step>
+  <Step title="If blocked or divergent">
+    Do not promote. Return state and next correct move.
+  </Step>
+</Steps>
+
+<Tip>
+Mode is a permission boundary, not a label. A mode change changes what is allowed. If a closed gate reopens during the task, stop treating execution as valid and re-enter through Recovery.
+</Tip>

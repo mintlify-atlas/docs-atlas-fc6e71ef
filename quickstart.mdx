@@ -1,47 +1,205 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Create a Signal Rail instance and open a governed session"
+sidebarTitle: "Quickstart"
+description: "Bootstrap a Signal Rail instance into your project directory and open your first AI-governed session with the correct entry order and frame closure."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+Getting Signal Rail running takes two steps: creating an instance in the directory you want to govern, and opening a session with a correct entry path. There are two ways to create the instance — a Windows bootstrap script that handles everything automatically, or a manual copy if you prefer full control. Either way, the session entry sequence is the same.
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
+## Two ways to create an instance
 
-## Prerequisites
+<CardGroup cols={2}>
+  <Card title="Windows bootstrap" icon="windows" href="/bootstrap/windows-installer">
+    Run `init_signal_rail.bat` to scaffold a full instance with auto-patching for date and project name.
+  </Card>
+  <Card title="Manual copy" icon="copy" href="/bootstrap/manual-copy">
+    Copy the canonical files yourself. The copied instance must preserve file names, marker structure, and entry flow.
+  </Card>
+</CardGroup>
 
-Before you begin, you must have:
+## Windows bootstrap
 
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
-
-## Get started
+The `init_signal_rail.bat` launcher is the fastest way to create a Signal Rail instance. It prompts for a target directory and an optional project name, then delegates the real bootstrap logic to `init_signal_rail.ps1`.
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Run the launcher">
+    Open a Command Prompt window in the Signal Rail source folder and run:
 
-    ```bash
-    npm install your-package
+    <CodeGroup>
+      ```bat Windows Command Prompt
+      init_signal_rail.bat
+      ```
+    </CodeGroup>
+
+    The launcher prints the bootstrap title and checks that `init_signal_rail.ps1` is present before continuing.
+  </Step>
+
+  <Step title="Enter the target directory">
+    When prompted, paste the full path to the directory where you want the instance created:
+
+    ```text
+    Paste the target directory: C:\Projects\my-project\signal-rail
+    ```
+
+    The target must not be the Signal Rail source folder itself. The script will refuse to overwrite its own source.
+  </Step>
+
+  <Step title="Enter a project name (optional)">
+    When prompted, type the host project name, or press Enter to skip:
+
+    ```text
+    Host project name (optional): My Project
+    ```
+
+    If provided, the project name will be auto-patched into both `03_master_working.txt` and `01_orientation.txt` (see auto-patching below).
+  </Step>
+
+  <Step title="Confirm any existing files">
+    If Signal Rail files already exist in the target directory, the script asks whether to overwrite them:
+
+    ```text
+    Existing Signal Rail files were found. Do you want to overwrite them? (yes/no)
+    ```
+
+    Entering `no` skips all existing files and creates only the ones that are missing.
+  </Step>
+
+  <Step title="Bootstrap completes">
+    The script copies all canonical files and reports what was created, overwritten, skipped, or customized. A summary of recommended next steps is printed to the console.
+  </Step>
+</Steps>
+
+## The 17 canonical files
+
+`init_signal_rail.ps1` copies exactly 17 files into the target directory:
+
+| File | Role |
+|---|---|
+| `00_runtime_entry.txt` | Runtime entry manual — valid entry and minimum read |
+| `README.txt` | Human-readable overview of the instance |
+| `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` | Instance marker file |
+| `01_orientation.txt` | Project identity, perimeter, and reading frame |
+| `02_protocol_freeze.txt` | Hard-to-reopen identity constants |
+| `03_master_working.txt` | Current live state, blocker, and next move |
+| `04_decision_log.txt` | Already-won decisions already in effect |
+| `05_latent_ideas.txt` | Live but unresolved material |
+| `06_ai_to_ai.txt` | Lateral kernel — agent operating behavior |
+| `07_guided_prompts_test.txt` | Guided paths for safer starts, rebuilds, and routing |
+| `08_surface_map.txt` | Technical topology, entrypoints, and sensitive surfaces |
+| `09_handoff_reentry.txt` | Re-entry support and continuity |
+| `97_field_findings.txt` | Lateral capture during an active pass |
+| `98_parking.txt` | Useful but not active material |
+| `99_archive.txt` | Closed, historical, or no-longer-live material |
+| `init_signal_rail.bat` | Windows bootstrap launcher |
+| `init_signal_rail.ps1` | Bootstrap logic script |
+
+## Auto-patching
+
+After copying the files, `init_signal_rail.ps1` applies two automatic patches:
+
+- **Date patch** — today's date in `yyyy-MM-dd` format is written into the `- date:` line of `03_master_working.txt`.
+- **Project name patch** — if a project name was provided, it is written into the `- project name:` line of both `03_master_working.txt` and `01_orientation.txt`.
+
+<Note>
+  Auto-patching only occurs when the file was created or explicitly overwritten in the current run. Skipped files are not patched.
+</Note>
+
+## First session startup
+
+Once the instance exists, open an AI chat with access to the instance directory and follow the mandatory read order before any substantive action.
+
+<Steps>
+  <Step title="Read 00_runtime_entry.txt">
+    This is the runtime entry manual. It governs valid entry and correct system reading. The agent must read this file before anything else.
+
+    ```text
+    Read 00_runtime_entry.txt
     ```
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
 
-    ```bash
-    your-cli init
+  <Step title="Read 06_ai_to_ai.txt">
+    This activates the lateral kernel. The kernel governs how the agent reads, stops, asks, routes, and writes inside the instance.
+
+    ```text
+    Read 06_ai_to_ai.txt
+    ```
+
+    <Note>
+      Reading `06_ai_to_ai.txt` activates the protocol. It does not authorize bootstrap, classification, or writing on its own.
+    </Note>
+  </Step>
+
+  <Step title="Read 01_orientation.txt">
+    Orientation establishes the project identity, perimeter, and reading frame. The default startup mode is orientation, which is read-only.
+
+    ```text
+    Read 01_orientation.txt
     ```
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
+  <Step title="Read 03_master_working.txt">
+    The master working file holds the current live state of the project: where it is now, what is active, what is blocking it, and what the next move is.
+
+    ```text
+    Read 03_master_working.txt
     ```
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## Closing the minimum frame
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
+After the mandatory read, the agent must close the minimum frame before any substantive action is allowed. The five items that must all be closed are:
+
+| Frame item | What it closes |
+|---|---|
+| **Host project** | The real project being governed — not Signal Rail itself |
+| **Working object** | The specific thing being worked on this session |
+| **Active mode** | The permission boundary for this session (orientation, review, work, etc.) |
+| **Source scope** | Which files or sources were explicitly indicated for this session |
+| **Authority** | Who can confirm freeze, live state, and source conflicts |
+
+If any of these is unclear, the agent stops and asks. It does not proceed by guessing.
+
+## Initial bootstrap actions
+
+When the instance is brand new and the canonical files are still template-like, fill these two files first before treating the instance as live:
+
+<Steps>
+  <Step title="Fill 01_orientation.txt">
+    Describe the **host project** — what it is, why it exists, its core direction, accepted trade-offs, and main boundaries. Do not describe Signal Rail here unless Signal Rail is itself the host project. Do not put current live work, decisions, or technical topology in this file.
+  </Step>
+
+  <Step title="Fill 03_master_working.txt">
+    Write the **current live state** of the project: the dominant blocker, what is actively being worked on, and the next sensible move. Do not use this file for proposals, ideas, or decisions not yet in effect.
+  </Step>
+</Steps>
+
+<Tip>
+  The `07_guided_prompts_test.txt` file provides the **New project bootstrap guided** path for opening a blank or near-blank instance safely. Use it when you need the agent to ask the minimum questions before writing anything to canonicals.
 </Tip>
+
+## Recommended next steps
+
+After bootstrap, the console output from `init_signal_rail.bat` shows these recommended steps:
+
+1. Read `00_runtime_entry.txt` first.
+2. Read `06_ai_to_ai.txt` after entry is valid.
+3. Close host project, working object, and mode.
+4. Fill `01_orientation.txt` and `03_master_working.txt` first.
+5. Continue from the textual system and use the canonicals by level.
+6. Use `97_field_findings.txt` only when you want to keep lateral findings readable before routing or discarding them.
+
+<CardGroup cols={2}>
+  <Card title="Core Concepts" icon="layer-group" href="/core-concepts">
+    Understand rails, levels, authority, and the write gate before your first session.
+  </Card>
+  <Card title="Bootstrap overview" icon="box" href="/bootstrap/overview">
+    Compare the Windows installer and manual copy approaches in detail.
+  </Card>
+  <Card title="AI agent operation" icon="robot" href="/guides/ai-agent-operation">
+    How the agent reads, stops, routes, and writes under Signal Rail governance.
+  </Card>
+  <Card title="Guided prompts" icon="comments" href="/guides/guided-prompts">
+    Safer guided paths for bootstrap, source rebuild, and routing passes.
+  </Card>
+</CardGroup>

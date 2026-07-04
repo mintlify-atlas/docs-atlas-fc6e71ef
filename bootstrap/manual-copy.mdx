@@ -1,0 +1,138 @@
+---
+title: "Manual copy: bootstrap a Signal Rail instance by hand"
+sidebarTitle: "Manual Copy"
+description: "Copy the 17 Signal Rail canonical files into any target folder on any platform. Always valid — names, markers, roles, and entry flow must stay intact."
+---
+
+Manual copy is the platform-independent way to create a Signal Rail instance. If you are not on Windows, if the bootstrap scripts are unavailable, or if you prefer direct control over file placement, copy the 17 canonical files from the Signal Rail source folder into your target folder yourself. Manual copy is always valid — there is no technical requirement to use the scripts. The only obligation is that the copied instance must still work the way a bootstrapped instance works: file names intact, marker structure intact, canonical roles intact, and entry flow intact.
+
+## When to use manual copy
+
+- You are on macOS, Linux, or any platform other than Windows.
+- `init_signal_rail.bat` and `init_signal_rail.ps1` are not available or not runnable in your environment.
+- You are staging files into a version-controlled project and want explicit control over what is copied.
+- You are creating a localized instance from the SR Localization Kit output.
+
+Manual copy does not produce a lesser instance than the Windows installer. The output is the same 17 files. The difference is that patching (date, project name) is not automatic — you must apply those changes yourself after copying.
+
+## Which files to copy
+
+Copy all 17 files from the Signal Rail source folder:
+
+| File | Role |
+|---|---|
+| `00_runtime_entry.txt` | Runtime entry manual; governs valid entry and correct system reading |
+| `README.txt` | Human-readable orientation for the kit |
+| `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` | Deployed instance marker |
+| `01_orientation.txt` | Project identity, perimeter, and reading frame |
+| `02_protocol_freeze.txt` | Identity-level constants that are hard to reopen by design |
+| `03_master_working.txt` | Current live state, dominant blocker, and next sensible move |
+| `04_decision_log.txt` | Already-won decisions already in effect |
+| `05_latent_ideas.txt` | Live unresolved material not yet stable enough for promotion |
+| `06_ai_to_ai.txt` | Lateral kernel governing agent behavior inside a Signal Rail instance |
+| `07_guided_prompts_test.txt` | Guided paths for safer starts, rebuilds, reviews, and routing passes |
+| `08_surface_map.txt` | Technical topology, entrypoints, sensitive surfaces, and minimal runbook |
+| `09_handoff_reentry.txt` | Continuity and re-entry support between sessions |
+| `97_field_findings.txt` | Temporary lateral capture during an active pass before routing or discard |
+| `98_parking.txt` | Useful but not currently active material |
+| `99_archive.txt` | Closed, historical, or no-longer-live material |
+| `init_signal_rail.bat` | Windows launcher for the bootstrap |
+| `init_signal_rail.ps1` | PowerShell script that performs the bootstrap logic |
+
+<Note>
+  If you copy only a subset of files, the missing files represent missing rails. The governed instance is incomplete. Each file governs a distinct level and role — there is no graceful degradation from a partial copy.
+</Note>
+
+## What must be preserved after manual copy
+
+Copying the files is not enough on its own. Four things must remain intact for the instance to be valid:
+
+### File names must be exact
+
+Copy files with their original names. The Signal Rail entry flow, the lateral kernel, and the overwrite check in the bootstrap script all reference exact file names. A renamed file breaks the chain.
+
+```text
+✅  00_runtime_entry.txt
+❌  00_entry.txt
+❌  runtime_entry.txt
+```
+
+### Marker structure must be intact
+
+Append-driven files (`04`, `05`, `08`, `09`, `97`, `98`, `99`) use a single entries zone delimited by:
+
+```text
+--- ENTRIES START ---
+...
+--- ENTRIES END ---
+```
+
+After copying, each of these files must still contain exactly one `--- ENTRIES START ---` marker and exactly one `--- ENTRIES END ---` marker, in correct order. If a copy operation corrupts or strips these markers, the entries contract is invalid and the system must stop before writing into that file.
+
+### Canonical roles must be preserved
+
+Each file must keep its original purpose. `03_master_working.txt` is for current live work — not an orientation log. `04_decision_log.txt` is for already-won decisions already in effect — not brainstorming. Do not repurpose a canonical container just because it is convenient.
+
+### Entry flow must be valid
+
+`00_runtime_entry.txt` must still be the first file read. `06_ai_to_ai.txt` must still be activated second, after entry is valid. These two files form the operational pair that closes the minimum safe frame. The order is not optional.
+
+## Manual post-copy actions
+
+The Windows bootstrap script auto-patches two fields that you must apply yourself after a manual copy:
+
+<Steps>
+  <Step title="Write today's date into 03_master_working.txt">
+    Open `03_master_working.txt` and find the bare `- date:` field. Replace it with today's date in `yyyy-MM-dd` format:
+
+    ```text
+    - date: 2025-07-14
+    ```
+  </Step>
+  <Step title="Write your project name into 01_orientation.txt and 03_master_working.txt">
+    Find the bare `- project name:` field in each of these two files and fill it with the name of the host project:
+
+    ```text
+    - project name: My Project
+    ```
+
+    Describe the host project — not Signal Rail — in `01_orientation.txt`.
+  </Step>
+</Steps>
+
+## What NOT to do
+
+<Warning>
+  Violating any of these rules produces a broken instance that may appear to work but will fail when the system needs to route, promote, or validate.
+</Warning>
+
+- **Do not rename files.** File names are part of the canonical contract. Renaming breaks entry flow and agent references.
+- **Do not reorder sections inside canonical files.** Each file's internal structure defines its reading boundaries and authority zones. Reordering sections invalidates those zones.
+- **Do not remove `[TEMPLATE ONLY]` scaffolding blocks from append-driven files.** These blocks are not live entries — they are local templates that show the required entry format. The entries contract requires them to be present as scaffold. A structured read must not count them as real entries, but they must not be deleted.
+- **Do not treat the entry gate (`00`) as optional.** `00_runtime_entry.txt` is not a summary you can skip after reading other files. It governs valid entry. Starting from any other file before completing the minimum read is a false entrypoint.
+- **Do not localize the baseline in place.** If you need a non-English instance, use the SR Localization Kit to create a separate localized copy first. Do not edit the original baseline files to localize them and then use that as your source for copies. Keep the baseline clean.
+
+## After manual copy
+
+Once all 17 files are in place and the post-copy patches are applied, follow the same entry sequence as the Windows installer:
+
+<Steps>
+  <Step title="Read 00_runtime_entry.txt first">
+    Governs valid entry and correct system reading. Mandatory before any operational use.
+  </Step>
+  <Step title="Read 06_ai_to_ai.txt after entry is valid">
+    Activates Signal Rail protocol. Governs how the agent reads, stops, asks, routes, and writes inside the instance.
+  </Step>
+  <Step title="Close host project, working object, and mode">
+    Close the minimum safe frame before writing. Reading does not authorize action.
+  </Step>
+  <Step title="Fill 01_orientation.txt and 03_master_working.txt">
+    Complete what you patched manually: project identity, perimeter, current live state, dominant blocker, and next sensible move.
+  </Step>
+  <Step title="Continue from the textual system using canonicals by level">
+    Route material by nature, stability, and authority — not by file proximity or conversational momentum.
+  </Step>
+  <Step title="Use 97_field_findings.txt for lateral captures only">
+    Use this file only when you want to keep lateral findings readable before routing or discarding them. It is not project memory.
+  </Step>
+</Steps>

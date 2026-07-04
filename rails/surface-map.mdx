@@ -1,0 +1,250 @@
+---
+title: "Surface Map (08): the project's real technical topology"
+sidebarTitle: "Surface Map"
+description: "08_surface_map.txt maps technical topology: active repos, real entrypoints, sensitive surfaces, and the minimal runbook for safe first contact."
+---
+
+`08_surface_map.txt` answers a different question from the other canonicals. While `01_orientation.txt` explains what the project is, `08` explains where it actually lives — which folders are real, which entrypoints are safe, which surfaces will cause outsized impact if touched incorrectly, and what the minimum requirements are to start working safely. A project that has a well-maintained `08` can be re-entered without guessing. One that lacks it forces every agent or operator to reconstruct technical reality from scratch each session.
+
+## What 08 is for
+
+This file does not explain what the project is. It explains where the project really lives, which entrypoints are real, which points attract but lead you away, and which surfaces have high impact if touched. It exists to give a concrete reading of the real body of the project, not of its idea.
+
+## What goes here
+
+| Content | Why it belongs here |
+|---|---|
+| Active repos or folders | Shows where the project really lives |
+| Real entrypoints | Shows where you truly enter the project |
+| Places not to start from | Prevents wrong or too-costly entry |
+| Sensitive files and surfaces | Shows where a small change can have large impact |
+| Minimal runbook | Gathers only the minimum required to start, verify, and make a first safe touch |
+| Critical env, config, or dependencies | Explains what truly changes the project's behavior |
+| Critical external integrations | Shows what the project touches outside its own files |
+
+## What does NOT go here
+
+| What | Where it belongs | Why |
+|---|---|---|
+| Project identity | `01_orientation.txt` | Explains what the project is, not where it lives |
+| Hard-to-reopen constants | `02_protocol_freeze.txt` | Stable constraints, not technical topology |
+| Current live work | `03_master_working.txt` | Present operational state, not technical map |
+| Decisions already taken | `04_decision_log.txt` | Already-won choices, not topology |
+| Ideas, backlog, or latent material | `05_latent_ideas.txt` | Not yet closed |
+| Full manual, long setup, extended troubleshooting | Nowhere in Signal Rail | 08 should remain a minimal map, not total documentation |
+| Total inventory of everything | Nowhere in Signal Rail | Not everything matters in the same way |
+
+## Template sections
+
+`08` uses six categories of entries, each with its own template and an example drawn from the source file.
+
+---
+
+### Repo / Folder
+
+Records where the project really lives. Not for listing everything — for helping someone recognise which places matter when reading, opening, or touching the project.
+
+```
+- place name:
+- path:
+- what is really there:
+- when it makes sense to enter:
+- when you risk entering by mistake:
+```
+
+**Example:**
+```
+- place name: main repo
+- path: C:\...\signal-rail
+- what is really there: the main kit and the living source of the project
+- when it makes sense to enter: when you need to update canonicals, kernel, or support tooling
+- when you risk entering by mistake: when you are actually trying to work on the active documentary surface
+```
+
+---
+
+### Entrypoint
+
+Records where someone truly enters the project. Not convenient points, not nearby points — the points from which a real reading, start, or first sensible touch actually begins.
+
+```
+- entrypoint:
+- what you find there first:
+- what that point is really for:
+- first safe move:
+```
+
+**Example:**
+```
+- entrypoint: 00_runtime_entry.txt
+- what you find there first: the runtime entry manual of the system
+- what that point is really for: closing valid entry before using the kernel and canonicals
+- first safe move: read it and then move into 06_ai_to_ai.txt
+```
+
+---
+
+### Do Not Start Here
+
+Records points that attract attention but can easily send you the wrong way. Naming false entrypoints explicitly protects against wrong entry even when the correct entrypoint is written.
+
+```
+- false entrypoint:
+- why it looks like a good idea:
+- why it sends you the wrong way:
+- where it is better to enter instead:
+```
+
+**Example:**
+```
+- false entrypoint: old backup folder
+- why it looks like a good idea: it contains familiar files and looks already prepared
+- why it sends you the wrong way: you risk writing on a non-active surface
+- where it is better to enter instead: active documentary surface or main repo, depending on the work
+```
+
+---
+
+### Sensitive Surface
+
+Records points where a small change can have a large impact. Not for writing what makes you anxious — for making visible where the impact class changes if something is touched.
+
+```
+- sensitive point:
+- what changes if you touch it:
+- why the impact is bigger than it seems:
+- first thing to check:
+```
+
+**Example:**
+```
+- sensitive point: 06_ai_to_ai.txt
+- what changes if you touch it: you may change writing and migration behavior across the whole system
+- why the impact is bigger than it seems: it governs the classification kernel
+- first thing to check: whether the problem is really kernel-level and not local to one file
+```
+
+---
+
+### Minimal Runbook
+
+Records only the minimum required for startup, basic verification, and a first safe touch. Not a full setup or tutorial.
+
+```
+- what you want to achieve:
+- minimum safe move:
+- what you should see if it worked:
+```
+
+**Example:**
+```
+- what you want to achieve: open the system safely
+- minimum safe move: read 00_runtime_entry.txt and then 06_ai_to_ai.txt
+- what you should see if it worked: the project frame and the right canonical entrypoints become clear
+```
+
+---
+
+### Critical Dependency
+
+Records only what truly changes the behavior of the project if it is missing or different. Not a list of everything around it.
+
+```
+- name:
+- where it really matters:
+- what happens if it is missing or changes:
+- how you notice:
+```
+
+**Example:**
+```
+- name: canonical files 01–05 / 08 / 98 / 99
+- where it really matters: project reading, classification, and writing
+- what happens if it is missing or changes: the system or the AI reads the project incompletely
+- how you notice: classification loses level or context
+```
+
+---
+
+### Critical Integration
+
+Records only external integrations that truly change the behavior of the project.
+
+```
+- integration:
+- where it really matters:
+- why it changes project behavior:
+- what risk opens if it changes or disappears:
+```
+
+**Example:**
+```
+- integration: separate deployed instance
+- where it really matters: private operational documentation
+- why it changes project behavior: it separates the active surface from the main kit
+- what risk opens if it changes or disappears: collapse between main repo and active operational surface
+```
+
+---
+
+## When to update it
+
+Update `08` when:
+
+- The real topology of the project changes
+- An entrypoint changes
+- A sensitive surface changes
+- A critical dependency changes
+- The minimum required to start, verify, or touch the project safely changes
+
+## The ENTRIES START/END zone
+
+Technical map updates use the append zone:
+
+```
+--- ENTRIES START ---
+[TEMPLATE ONLY]
+[TECHNICAL MAP UPDATE]
+[short label]
+- type:
+- technical map update:
+- why does this belong in the technical map?:
+- links to:
+- external reference:
+--- ENTRIES END ---
+```
+
+## Section hygiene
+
+The section titles in `08` are operational anchors. Keep them stable and do not duplicate them unnecessarily.
+
+| Field type | Rule |
+|---|---|
+| `links to` | Must point only to real canonical files or real IDs |
+| `external reference` | Use for useful files, paths, or materials outside the canonical set |
+| Open slots | Acceptable only while a block is clearly template-like — not permanent noise in a live surface map |
+
+## Typical errors
+
+<Warning>
+- Turning this file into a full manual
+- Filling it with details that do not help find, enter, or understand impact
+- Using it to write current work instead of real topology
+- Leaving it too vague to be useful
+- Starting from the wrong point just because it looks closer or more convenient
+</Warning>
+
+<CardGroup cols={2}>
+  <Card title="Runtime Entry (00)" icon="door-open" href="/rails/runtime-entry">
+    Entry gate — 08 is read conditionally when technical surfaces may be touched.
+  </Card>
+  <Card title="Orientation (01)" icon="compass" href="/rails/orientation">
+    Project identity — the complement to 08's technical topology.
+  </Card>
+  <Card title="Guided Prompts" icon="comment-dots" href="/guides/guided-prompts">
+    Guided paths for safer surface-aware starts and routing passes.
+  </Card>
+  <Card title="Workstation Reference" icon="desktop" href="/reference/workstation">
+    The offline workstation for reading, staging, and previewing surface changes.
+  </Card>
+</CardGroup>

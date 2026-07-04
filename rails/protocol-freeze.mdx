@@ -1,0 +1,139 @@
+---
+title: "Protocol Freeze (02): hard-to-reopen identity constants"
+sidebarTitle: "Protocol Freeze"
+description: "02_protocol_freeze.txt holds up to five F-xx identity constants — principles that are hard to reopen because removing them changes what the project is."
+---
+
+`02_protocol_freeze.txt` holds the hardest material in Signal Rail. It is short, strong, and designed to resist change. Where `01_orientation.txt` explains what the project is, `02` names the points that, if removed, would make the project stop being itself. Freeze entries are not preferences, not current solutions, and not strong-but-young ideas. They are principles that have already shown they hold over time — points whose removal or reversal would genuinely change the project's identity.
+
+## What 02 is for
+
+This file holds the identity constants of the project. Write here only the things you do not want to reopen easily because, if they fail, the project stops being itself. It should stay short, strong, and difficult to touch.
+
+The key question is: **would the project still be recognisable if this point were removed?** If the answer is no, the point may belong here. If the answer is uncertain, it does not belong here yet.
+
+## What goes here
+
+| Content | Why it belongs here |
+|---|---|
+| Principles that still hold even when the project changes shape, tools, or working style | Should remain true even when the rest changes |
+| Identity constraints that are more than just a good solution for today | Define the project more than the current context does |
+| Points that, if removed or reversed, would truly change the nature of the project | Mark the line beyond which the project stops being itself |
+
+## What does NOT go here
+
+| What | Where it belongs | Why |
+|---|---|---|
+| Preferences | Nowhere in Signal Rail | Do not define the identity of the project |
+| Current work state | `03_master_working.txt` | Describes the present state, not identity constants |
+| Live but contextual decisions | `04_decision_log.txt` | Choices already taken, not identity constants |
+| Strong but still young ideas | `05_latent_ideas.txt` | Not yet stable enough to live here |
+| Momentary detail, style, or temporary solution | Nowhere in Signal Rail | Depends too much on current context |
+| Things working now but not yet proven over time | `05_latent_ideas.txt` | Validate elsewhere first; may be a good phase, not a constant |
+
+## Update rules
+
+Update `02` only when:
+
+- A principle has already shown that it holds over time
+- You understand that without that point the project would lose identity
+- A freeze truly needs to be reopened because of a real break — not just a new preference
+
+<Warning>
+Do not update 02 often. Do not update it just because something looks important. Update it only when a principle has already shown it should stay stable over time.
+</Warning>
+
+## Entry template
+
+Maximum **5 active freeze entries**. This limit prevents two mistakes: turning the file into a total summary of the project, and using it as a noble place for everything that sounds important.
+
+Local entries in `02` use **only `F-xx` IDs** (F-01 through F-05). If you reference `D-xx`, `L-xx`, or other external IDs, they remain references in `links to`; they do not become new local IDs here.
+
+```
+- id: F-01
+- principle:
+- why it is frozen:
+- links to:
+- reopening trigger:
+```
+
+**Field guidance:**
+
+| Field | What to write |
+|---|---|
+| `id` | F-01 through F-05 — stable, never reused |
+| `principle` | Short and readable; the constant itself |
+| `why it is frozen` | What breaks if you lose it |
+| `links to` | A strong source, not noise |
+| `reopening trigger` | Narrow: not "if we change our mind" but "if real cases show…" |
+
+## The ENTRIES START/END zone
+
+Entries in `02` must be written inside the entries zone:
+
+```
+--- ENTRIES START ---
+...
+--- ENTRIES END ---
+```
+
+The marker contract must remain valid: exactly one start marker, exactly one end marker, correct order, local template preserved as scaffold. `[TEMPLATE ONLY]` blocks are scaffolding only and do not count as live freeze entries.
+
+## How to tell whether something deserves freeze
+
+<Steps>
+  <Step title="Ask the identity test">
+    Would the project still be recognisable if you removed this point?
+  </Step>
+  <Step title="Ask the foundation test">
+    Are you defending a foundation or only a good solution for today?
+  </Step>
+  <Step title="Ask the ownership test">
+    Does this truly belong to the identity of the project, or does it belong to its current phase?
+  </Step>
+  <Step title="If any answer is unclear">
+    Do not freeze it yet. Place it in `05_latent_ideas.txt` until it proves it holds.
+  </Step>
+</Steps>
+
+## 02 vs 04: freeze vs decision
+
+This distinction matters because confusing these levels removes force from both files.
+
+| Concept | File | Meaning |
+|---|---|---|
+| **Freeze** | `02_protocol_freeze.txt` | A constant that should be difficult to reopen |
+| **Decision** | `04_decision_log.txt` | A choice that has already been taken |
+| **Live work** | `03_master_working.txt` | The current state of the project |
+
+A decision can be reopened with the right trigger. A freeze is harder — reopening it requires evidence that a real break has occurred, not just a new preference. If you confuse these levels, `02` loses its force as an identity anchor.
+
+## Writing a good freeze entry
+
+<Tip>
+The `reopening trigger` should be narrow and evidence-based: not "if we change our mind" but "if real cases show that this principle prevents the project from functioning in its core purpose." Vague triggers make freeze entries easier to circumvent.
+</Tip>
+
+## Typical errors
+
+<Warning>
+- Using freeze to give authority to material that is still too young
+- Freezing details that are only working well right now
+- Mistaking a good formulation for a project constant
+- Filling every slot just for the feeling of completeness
+</Warning>
+
+<CardGroup cols={2}>
+  <Card title="Orientation (01)" icon="compass" href="/rails/orientation">
+    Project identity — the frame that 02 anchors most deeply.
+  </Card>
+  <Card title="Decision Log (04)" icon="scale-balanced" href="/rails/decision-log">
+    Choices already taken — the distinction from freeze that matters most.
+  </Card>
+  <Card title="Latent Ideas (05)" icon="seedling" href="/rails/latent-ideas">
+    Where strong but unproven ideas belong before they earn freeze consideration.
+  </Card>
+  <Card title="ID Families Reference" icon="id-card" href="/reference/id-families">
+    Full reference for F-xx, D-xx, L-xx, P-xx, and A-xx ID families.
+  </Card>
+</CardGroup>

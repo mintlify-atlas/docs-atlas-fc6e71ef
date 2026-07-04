@@ -1,0 +1,76 @@
+---
+title: "Signal Rail: Plain-Text Document Governance System"
+sidebarTitle: "Introduction"
+description: "Signal Rail is a plain-text document governance system that prevents project material from becoming noise by giving every unit a typed destination."
+---
+
+Signal Rail is a plain-text document governance system for personal and AI-assisted projects. It separates project material into typed rails — current state, decisions, constraints, unresolved ideas, surface maps, handoff, parking, and archive — so that work stays readable as a project grows, branches, changes shape, and returns after interruption. The system does not try to make a project smaller than it is. It keeps the material bounded, routable, and recoverable at every stage.
+
+## The problem it solves
+
+Project documentation usually breaks when everything lives in the same undifferentiated space. There is no structural difference between a note and a decision, between a live blocker and a historical one, between a possibility that is still open and a constraint that has already won. When level and authority blur, the material becomes dangerous.
+
+Signal Rail prevents that by asking one practical question before anything is written:
+
+```text
+What kind of material is this, and where should it live?
+```
+
+The answer changes the file. A current live line belongs in `03_master_working.txt`. A decision that has already won belongs in `04_decision_log.txt`. A still-mobile direction belongs in `05_latent_ideas.txt`. A hard-to-reopen identity constant belongs in `02_protocol_freeze.txt`. A technical entrypoint or sensitive surface belongs in `08_surface_map.txt`. Nothing is promoted just because it sounds strong.
+
+## The three-level architecture
+
+Signal Rail is built around three distinct things that must never be confused:
+
+| Surface | Meaning |
+|---|---|
+| **Clean baseline kit** | This repository — the reusable Signal Rail source. |
+| **Deployed instance** | A copy of Signal Rail placed inside or beside a real project. |
+| **Host project** | The actual project being governed by Signal Rail. |
+| **Workstation** | Optional local interface for reading, staging, previewing, and writing a live instance. |
+
+A deployed instance marker only means that the folder is a Signal Rail instance. It does not identify the host project by itself. The agent must still close the host project, working object, mode, scope, and authority before any substantive action.
+
+<Note>
+  The tool surface and the host project are not the same thing. Signal Rail governs the host project — it is not the host project. Keep this separation sharp at all times.
+</Note>
+
+## What Signal Rail prevents
+
+Signal Rail is strict because project material becomes dangerous when level and authority blur. These are the eight specific failure modes it blocks:
+
+- A **strong sentence** becoming a decision
+- A **live blocker** becoming project identity
+- A **temporary solution** becoming freeze
+- A **hypothesis** entering current work too early
+- A **handoff note** becoming canonical truth
+- A **technical map** becoming orientation
+- A **clean rewrite** becoming less true than the messy source
+- A **deployed instance** being mistaken for the host project
+
+Signal Rail does not route material by convenience. It routes by nature, stability, and authority.
+
+<Warning>
+  Clarity is not authority. Strength is not promotion. A summary is not a source. A strong sentence is not a decision. None of these conditions alone authorize writing to a canonical file.
+</Warning>
+
+## The lateral kernel
+
+`06_ai_to_ai.txt` is a lateral kernel. It governs how an AI agent reads, stops, asks, routes, proposes, and writes while operating inside a Signal Rail instance. It is not a global personality file, and it does not make every AI answer follow Signal Rail everywhere.
+
+The kernel becomes active in the right context — for the right folder, with the right entry layer. It does not turn the whole AI session into a permanent document-management contract outside Signal Rail. This is why Signal Rail stays light: the kernel activates where it belongs, and nowhere else.
+
+<CardGroup cols={2}>
+  <Card title="Rails overview" icon="map" href="/rails/overview">
+    Explore every rail, its role, and what belongs in each canonical file.
+  </Card>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Bootstrap a Signal Rail instance and start your first governed session.
+  </Card>
+  <Card title="Core Concepts" icon="layer-group" href="/core-concepts">
+    Understand rails, levels, authority, and the write gate.
+  </Card>
+  <Card title="AI agent operation" icon="robot" href="/guides/ai-agent-operation">
+    Learn how an AI agent moves through Signal Rail correctly.
+  </Card>
+</CardGroup>

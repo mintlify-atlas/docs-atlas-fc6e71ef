@@ -1,0 +1,83 @@
+---
+title: "Signal Rail file map: canonical and lateral file roles"
+sidebarTitle: "File Map"
+description: "Quick-reference guide to every Signal Rail file, its canonical or lateral role, ID family, and mandatory read order for a safe session."
+---
+
+Signal Rail ships with 17 files. Each has a specific role — canonical, lateral, marker, or tooling — and no two files share the same responsibility. Understanding which file governs which level is the foundation of safe Signal Rail operation. This page is the permanent quick-reference for that structure.
+
+## File inventory
+
+The table below covers every file in the baseline kit. **Number** is the two-digit prefix used in the filename. **Role** is what the file governs. **Type** classifies the file's authority class. **ID Family** is the identifier prefix used for entries inside that file, if any. **Append-Driven?** marks whether the file uses an `--- ENTRIES START --- / --- ENTRIES END ---` zone for new live content.
+
+| File | Number | Role | Type | ID Family | Append-Driven? |
+|---|---|---|---|---|---|
+| `00_runtime_entry.txt` | 00 | Runtime entry gate and system map | Canonical | — | No |
+| `01_orientation.txt` | 01 | Project identity, perimeter, reading frame | Canonical | — | No |
+| `02_protocol_freeze.txt` | 02 | Hard-to-reopen identity constants | Canonical | F-xx | No (max 5 entries) |
+| `03_master_working.txt` | 03 | Current live state, blockers, next move | Canonical | — | No |
+| `04_decision_log.txt` | 04 | Already-won decisions in effect | Canonical | D-xx | Yes |
+| `05_latent_ideas.txt` | 05 | Live unresolved material | Canonical | L-xx | Yes |
+| `06_ai_to_ai.txt` | 06 | Lateral kernel: AI protocol behaviour | Lateral | — | No |
+| `07_guided_prompts_test.txt` | 07 | Guided question flows for safe sessions | Lateral | — | No |
+| `08_surface_map.txt` | 08 | Technical topology, entrypoints, runbook | Canonical | — | Yes |
+| `09_handoff_reentry.txt` | 09 | Session continuity and re-entry | Lateral | — | Yes |
+| `97_field_findings.txt` | 97 | Lateral finding capture | Lateral | — | Yes |
+| `98_parking.txt` | 98 | Useful-but-inactive material | Lateral | P-xx | Yes |
+| `99_archive.txt` | 99 | Closed historical material | Lateral | A-xx | Yes |
+| `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` | — | Deployed instance marker | Marker | — | No |
+| `init_signal_rail.bat` | — | Windows bootstrap launcher | Tooling | — | No |
+| `init_signal_rail.ps1` | — | PowerShell instance bootstrap script | Tooling | — | No |
+| `signal_rail_workstation_final.html` | — | Offline HTML workstation UI | Tooling | — | No |
+
+## Authority hierarchy
+
+Signal Rail does not treat all files as equivalent. Each canonical file governs its own level only. When files appear to conflict, the file that governs the touched level decides the reading boundary.
+
+- **`02_protocol_freeze.txt`** has authority on identity-level constants.
+- **`03_master_working.txt`** has authority on current intended work state.
+- **`04_decision_log.txt`** has authority on taken decisions.
+- **`06_ai_to_ai.txt`** has authority on horizontal protocol behaviour (the lateral kernel).
+- **`08_surface_map.txt`** has authority on technical topology, entrypoints, sensitive surfaces, and the minimal runbook.
+- **Lateral surfaces** — `06`, `07`, `09`, `97`, `98`, `99` — do not override canonical containers and do not carry project truth by default.
+- **`09_handoff_reentry.txt`** output is non-canonical. It may summarise canonical state for continuity, but canonical updates must be routed separately through the appropriate file.
+- **Files outside canonical containers** carry no authority over freeze, decisions, or project identity.
+
+## Mandatory read order
+
+Every session must complete minimum read before substantive action. Reading does not authorise action; understanding does not authorise writing.
+
+```text
+1. 00_runtime_entry.txt   — close the entry gate and system map
+2. 06_ai_to_ai.txt        — activate the lateral kernel
+3. 01_orientation.txt     — close project identity and reading frame
+4. 03_master_working.txt  — close current live state
+```
+
+**Conditional reads** (required when the relevant surface may be touched):
+
+| Condition | Additional file to read |
+|---|---|
+| Identity, freeze, or structural constants may be touched | `02_protocol_freeze.txt` |
+| Decisions may be touched | `04_decision_log.txt` |
+| Technical surfaces, entrypoints, or dependencies may be touched | `08_surface_map.txt` |
+| Session continuity or restart matters | `09_handoff_reentry.txt` |
+| Unresolved live material is under review | `05_latent_ideas.txt` |
+| Active field findings are explicitly relevant | `97_field_findings.txt` |
+| Folder needs to be confirmed as a deployed instance | `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` |
+
+<Note>
+  A task arriving before minimum read is complete does **not** authorise skipping minimum read. Complete the read order first, then proceed to the task.
+</Note>
+
+## Canonical vs lateral vs tooling
+
+Signal Rail uses three distinct file classes, and confusing them leads to bad routing decisions.
+
+**Canonical surfaces** carry project truth. They are the authoritative record of project identity, live state, decisions, technical topology, and identity constants. Writing to a canonical file changes the project's authoritative record. Examples: `01`, `02`, `03`, `04`, `05`, `08`.
+
+**Lateral surfaces** support the work without overriding canonicals. They govern protocol behaviour (`06`), guided question flows (`07`), session continuity (`09`), temporary finding capture (`97`), suspended material (`98`), and historical material (`99`). Lateral files do not override canonicals and do not carry project truth by default.
+
+**Tooling files** — `init_signal_rail.bat`, `init_signal_rail.ps1`, and `signal_rail_workstation_final.html` — bootstrap or interface with Signal Rail instances. They carry no document authority and do not participate in the canonical or lateral read order.
+
+The marker file `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` occupies its own class: it identifies a folder as a deployed Signal Rail instance but does not by itself identify the host project, authority, or working object.

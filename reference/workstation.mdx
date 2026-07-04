@@ -1,0 +1,82 @@
+---
+title: "Signal Rail Workstation: offline local HTML interface"
+sidebarTitle: "Workstation"
+description: "What signal_rail_workstation_final.html is, what it provides for live instance maintenance, and what it does not replace in an AI-governed session."
+---
+
+The Signal Rail Workstation is a single self-contained HTML file — `signal_rail_workstation_final.html` — that provides a browser-based interface for reading, inspecting, staging, previewing, and writing back to a live Signal Rail instance. It requires no server, no build step, and no installation. Open it in a browser, grant it access to the folder that contains your Signal Rail instance, and it gives you a cleaner human surface for maintaining the canonical files directly.
+
+## What the workstation is for
+
+Direct manual maintenance of Signal Rail files is possible, but it is easy to get wrong when routing, markers, authority, and promotion rules are all in play at once. The workstation exists to reduce that friction for the operator working outside an AI session.
+
+From the README, the workstation is for:
+
+- **Reading canonical files** — view the current content of each file in a structured, readable interface rather than a raw text editor
+- **Inspecting runtime state** — see the current working frame, folder path, and session metadata in the status area
+- **Staging edits** — prepare changes before writing them back
+- **Previewing changes** — review what will be written before it is committed to the `.txt` file
+- **Writing back** — save staged edits to the matching `.txt` files when local folder access is available
+
+<Note>
+  The workstation does not replace the canonicals and does not change their authority. It is a maintenance interface for a live instance, not an operating interface for an active AI-governed session.
+</Note>
+
+## How it works
+
+The workstation is a fully standalone HTML file. It uses the browser's **File System Access API** to read and write local `.txt` files in the Signal Rail instance folder when the user grants folder access through the browser's native file picker.
+
+No data leaves the machine. No server is involved. The file operates entirely in the browser's JavaScript environment using local file handles provided by the operator.
+
+**To use it:**
+
+1. Open `signal_rail_workstation_final.html` in a modern browser (Chrome, Edge, or any browser supporting the File System Access API).
+2. Use the folder access control to point the workstation at the folder containing your Signal Rail instance.
+3. The workstation reads the `.txt` files from that folder and populates the tabbed view.
+4. Make edits in the staging area, preview the result, and use the save action to write back.
+
+## UI structure
+
+The workstation uses a dark theme throughout, built around a deep navy background (`#0e131a`) with a blue accent (`#7dc6ff`), mint highlights (`#7fe2bd`), and gold secondary accents (`#f0c27b`).
+
+The interface is organised as follows:
+
+| Area | What it shows |
+|---|---|
+| **Topbar — Brand** | Signal Rail name, version meta, and subtitle |
+| **Topbar — Status frame** | Three status cards: host project, working object, active mode |
+| **Topbar — Actions** | Action buttons for session operations; folder path card showing the active instance path |
+| **Tabs bar** | Tab buttons for each canonical file (e.g., `00`, `01`, `02`, `03` …); fullscreen toggle |
+| **Utility row** | Global search field; write form selector for staging edits |
+| **Main surface** | The active tab's file content; entry viewer; staging and preview panels |
+
+The tab buttons use the file number prefix as the label. The active tab is highlighted with a blue-tinted border and background (`rgba(125,198,255, 0.17)`). The write form area provides a structured input for preparing new entries — particularly useful for append-driven files, where the entries zone contract must be respected.
+
+## When to use the workstation vs direct text editing
+
+Signal Rail files are plain text and can be maintained with any editor. Direct editing is a valid fallback. However, the workstation is the safer default for manual maintenance because:
+
+- It makes the **append zone visible** — the `--- ENTRIES START ---` and `--- ENTRIES END ---` markers are presented structurally, reducing the risk of writing outside the entries zone
+- It surfaces the **entry zone contract** — one start marker, one end marker, correct order, local template preserved
+- It keeps **file routing decisions** in front of the operator — the tab structure makes it harder to accidentally write to the wrong file
+- It provides a **preview pass** before any write is committed
+
+Direct text editing remains appropriate when the workstation is not available, when the edit is trivial and the file's contract is clear, or when the operator is confident in the target file's structure.
+
+## What the workstation does not do
+
+The workstation is a maintenance interface. It is **not** a replacement for the AI-governed session.
+
+Specifically, the workstation does not:
+
+- **Activate the lateral kernel** — `06_ai_to_ai.txt` is not loaded or interpreted by the workstation; protocol behaviour is not enforced
+- **Close the working frame** — host project, working object, mode, scope, and authority are not automatically closed; the status cards show whatever was last set by the operator, not a live session state
+- **Replace the entry sequence** — the mandatory read order (`00 → 06 → 01 → 03`) must still happen in the AI session before substantive action
+- **Enforce routing rules** — the workstation does not stop the operator from writing to the wrong file; it is a human maintenance aid, not a governed agent
+- **Handle authority disputes** — if canonical files conflict, the workstation does not detect or resolve the conflict
+
+<Warning>
+  Do not use the workstation as a substitute for the AI-governed session when routing, promotion, or authority decisions are involved. The workstation is for direct maintenance of a live instance — reading, staging, previewing, and writing back — not for operating the system's governance logic.
+</Warning>
+
+The AI session must still be opened separately through `00_runtime_entry.txt` and `06_ai_to_ai.txt`. The workstation and the AI session serve different purposes and are used at different times.

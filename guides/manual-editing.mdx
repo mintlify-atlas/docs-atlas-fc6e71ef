@@ -1,0 +1,149 @@
+---
+title: "Manual editing of Signal Rail canonical files safely"
+sidebarTitle: "Manual Editing"
+description: "How to safely edit Signal Rail files by hand without breaking rails, markers, authority, or canonical routing — and when the workstation is safer."
+---
+
+Signal Rail files are plain text and can be maintained with any simple editor. That accessibility is intentional — the system should remain usable even if tooling disappears. But manual editing is a **fallback**, not the safest default. When you edit by hand, there is nothing between your changes and the live canonical file. The markers, authority rules, ID families, and promotion boundaries that keep Signal Rail coherent must all be respected manually. Getting them wrong does not produce an obvious error — it silently corrupts the governance layer the rest of the system depends on.
+
+The [workstation](/reference/workstation) (`signal_rail_workstation_final.html`) exists precisely because direct manual maintenance is possible but easy to get wrong. For any edit where routing, markers, authority, or promotion rules matter, the workstation provides a safer human surface.
+
+## What must always be respected
+
+Before touching any Signal Rail file by hand, confirm that your edit will respect all of the following:
+
+| Rule | What it means |
+|---|---|
+| **Canonical destination** | Write to the file that governs the level of the material being added |
+| **File authority** | Each file governs only its own level; do not write content that belongs to a different file |
+| **Local templates** | Each file contains its own template structure; do not delete or overwrite template scaffolding |
+| **Entry markers** | Append-driven files use `--- ENTRIES START ---` and `--- ENTRIES END ---`; do not remove, duplicate, or reorder them |
+| **Append zones** | New live entries go only inside the entries zone, never outside it |
+| **ID families** | Use only the correct ID prefix for the file being edited |
+| **Source authority** | Do not write content whose governing source has not been read in the current session |
+| **Promotion boundaries** | Do not promote material to a stronger level unless destination, level, and authority are all clear |
+
+---
+
+## The append-driven zone rule
+
+Files `04`, `05`, `08`, `09`, `97`, `98`, and `99` are **append-driven**. They grow through their entries zone only. New live entries must be placed inside and only inside the following markers:
+
+```text
+--- ENTRIES START ---
+
+  (your new entries go here)
+
+--- ENTRIES END ---
+```
+
+The rules for this zone are strict:
+
+- **Exactly one** `--- ENTRIES START ---` per file
+- **Exactly one** `--- ENTRIES END ---` per file
+- The start marker must come before the end marker
+- Entries go inside the zone — never outside it
+- The zone must remain intact; do not move, duplicate, or delete either marker
+
+If the marker contract is missing, duplicated, malformed, or ambiguous in any file you are about to edit, **stop**. Do not write until the marker contract is resolved. A broken entries zone is a structural failure — it breaks not just that file, but anything that depends on reading it correctly.
+
+<Warning>
+Do not write outside the entries zone in append-driven files. Even a well-intentioned edit placed outside `--- ENTRIES START ---` / `--- ENTRIES END ---` breaks the entries contract and cannot be trusted by a structured reader.
+</Warning>
+
+---
+
+## The [TEMPLATE ONLY] scaffolding rule
+
+Every append-driven canonical file contains a local empty template inside its entries zone. This template is marked `[TEMPLATE ONLY]`. It is scaffolding — it shows the correct entry shape for that file. It is **not a live entry** and carries no canonical authority.
+
+Rules that apply:
+
+- Do not treat a `[TEMPLATE ONLY]` block as a real entry
+- Do not delete the template block — it must remain as scaffold
+- Do not count template blocks when reading how many entries a file contains
+- A structured read must skip `[TEMPLATE ONLY]` entirely when evaluating live content
+
+Each file keeps its **own** local template. Do not normalize all templates into one generic format across files. The template for `04_decision_log.txt` is different from the template for `05_latent_ideas.txt` by design.
+
+---
+
+## ID family rules
+
+Each append-driven canonical file uses its own ID prefix. IDs are local to their container family. A cross-file reference to another file's ID is valid as a reference only — it does not create a new local ID in the file you are editing.
+
+| File | ID prefix | Example |
+|---|---|---|
+| `02_protocol_freeze.txt` | `F-xx` | `F-01`, `F-02` |
+| `04_decision_log.txt` | `D-xx` | `D-01`, `D-02` |
+| `05_latent_ideas.txt` | `L-xx` | `L-01`, `L-02` |
+| `98_parking.txt` | `P-xx` | `P-01`, `P-02` |
+| `99_archive.txt` | `A-xx` | `A-01`, `A-02` |
+
+<Warning>
+Do not invent IDs. Do not reuse an ID from another file as a local ID. Do not assign a `D-xx` ID to an entry in `05`, or an `L-xx` ID to an entry in `04`. Cross-file IDs belong in `links to` only — they do not become native IDs in the receiving file.
+</Warning>
+
+---
+
+## `links to` vs `external reference`
+
+Two different reference fields appear in canonical entries. They are not interchangeable.
+
+| Field | Use for |
+|---|---|
+| `links to` | Canonical, internal, or explicitly host-safe references the system should validate as part of canonical reading |
+| `external reference` | Material outside the canonical set or outside the local surface; carries no canonical authority by default |
+
+Use `links to` when pointing to another entry in the canonical set (e.g., `links to: D-03`). Use `external reference` when pointing to a source outside the canonical files — a URL, an external doc, a third-party tool, or a note that is not part of the governed canonical set.
+
+---
+
+## What NOT to do
+
+Manual editing has specific failure patterns that are easy to fall into:
+
+- **Do not turn manual editing into free-form note taking.** Signal Rail files are structured governance containers, not scratchpads. An entry that does not follow the file's template and entry rules breaks the rails.
+- **Do not write outside the entry zone** in any append-driven file. The area above `--- ENTRIES START ---` and below `--- ENTRIES END ---` is structural, not a writing surface.
+- **Do not invent IDs.** Assign the next ID in the correct family sequence for that file. Do not make up an ID format that does not exist in the system.
+- **Do not delete a template block.** Even if it looks unused, the `[TEMPLATE ONLY]` scaffold belongs there.
+- **Do not mix content levels in one entry.** If material belongs to two different files, create two entries in two different files.
+- **Do not promote from cleanliness or confidence.** A well-written note is not a decision. A plausible direction is not freeze. Authority is not inferred from the quality of the text.
+
+---
+
+## File-specific cautions
+
+### `02_protocol_freeze.txt` — five-entry cap
+
+`02_protocol_freeze.txt` holds identity-level constants: the points that, if removed, would make the project stop being itself. It is hard to reopen by design. When editing manually:
+
+- The file is capped at **five entries** maximum. If you are at or approaching five entries, stop and consider whether the entry you are about to add genuinely meets the identity-constant threshold.
+- Do not use `02` for strong strategy that is still being tested. A strong idea or clear direction is not freeze.
+- Editing `02` requires **structure mode** — you cannot edit it from work, ingest, or reference mode. If you are editing by hand, this means you should be operating with the explicit intent of a structure-mode pass, not as an incidental edit during other work.
+
+### `03_master_working.txt` — sections are stable operational anchors
+
+`03_master_working.txt` governs the current live state of the project. Its internal sections are stable operational anchors — they define where the project is now, what is active, what is blocking it, and what the next sensible move is. When editing manually:
+
+- Do not restructure the sections without an intentional structure-mode pass.
+- Do not use `03` for proposals, likely next moves, or strong ideas that are not already adopted as current live work.
+- Do not turn `03` into an orientation log, boot log, or historical timeline.
+- If the live state changes, update `03`. Do not leave outdated state as though it is current.
+
+### `06_ai_to_ai.txt` — lateral kernel; structure mode only
+
+`06_ai_to_ai.txt` is the lateral kernel. It governs protocol behavior for the entire Signal Rail system. It is **not** host-project canonical content, and editing it is not a routine writing task. When editing manually:
+
+- Editing `06` **requires structure mode** without exception.
+- No local additions are allowed by default. If a local exception is needed, it requires explicit human authority.
+- Do not add content that is already governed in `06` to other files. If the same rule appears across multiple canonicals, it belongs only in `06`.
+- Do not restate cross-file system rules in other canonical files. Canonical files define themselves. Horizontal rules live in `06`.
+
+---
+
+## The workstation as a safer alternative
+
+The [Signal Rail workstation](/reference/workstation) (`signal_rail_workstation_final.html`) is a local offline interface that lets you read, stage, preview, and write back to the canonical `.txt` files without editing raw text directly. It does not replace the canonicals. It does not change authority. It exists because the things that are easy to get wrong in manual editing — routing, markers, authority, and promotion rules — are easier to respect when you have a structured human surface in front of you.
+
+If you are about to make an edit that touches markers, IDs, template blocks, or promotion boundaries, the workstation is the safer path. Reserve raw manual text editing for straightforward append operations where the entries zone is intact, the template is in place, and the ID and format are unambiguous.

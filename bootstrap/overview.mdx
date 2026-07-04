@@ -1,0 +1,75 @@
+---
+title: "Bootstrap a Signal Rail instance using two methods"
+sidebarTitle: "Overview"
+description: "Create a deployed Signal Rail instance inside or beside your project using the Windows bootstrap scripts or by copying the 17 canonical files by hand."
+---
+
+Bootstrapping a Signal Rail instance means creating a deployed copy of the Signal Rail baseline kit inside or beside the real project you want to govern. The deployed instance is the **tool surface** — a working set of canonical files that you read, write into, and operate against during the life of the project. It is not the host project. Once bootstrapped, the instance holds its own rails, markers, and entry logic independently of the Signal Rail source repository.
+
+There are two ways to create a deployed instance: run the **Windows bootstrap scripts** (`init_signal_rail.bat` + `init_signal_rail.ps1`) for an automated, guided setup, or **copy the files manually** on any platform when automation is not available or not desired. Both methods produce the same result: a folder containing the 17 canonical files ready for operation.
+
+<CardGroup cols={2}>
+  <Card title="Windows Installer" icon="windows" href="/bootstrap/windows-installer">
+    Run `init_signal_rail.bat` to copy, patch, and confirm a new instance in one guided pass. Recommended when you are on Windows.
+  </Card>
+  <Card title="Manual Copy" icon="copy" href="/bootstrap/manual-copy">
+    Copy the 17 files yourself on any platform. Always valid — but you must preserve file names, markers, canonical roles, and entry flow.
+  </Card>
+</CardGroup>
+
+## What a deployed instance contains
+
+A deployed instance is exactly the 17 files from the canonical list below — no more, no less. The presence of `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` is the critical marker that identifies a folder as a deployed Signal Rail instance, as opposed to the clean baseline repository. An AI agent reading this marker must still close the host project, working object, mode, scope, and authority before taking substantive action — the marker does not do that work by itself.
+
+| File | Role |
+|---|---|
+| `00_runtime_entry.txt` | Runtime entry manual; governs valid entry and correct system reading |
+| `README.txt` | Human-readable orientation for the kit |
+| `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` | Deployed instance marker; does not identify host project or authority |
+| `01_orientation.txt` | Project identity, perimeter, and reading frame |
+| `02_protocol_freeze.txt` | Identity-level constants that are hard to reopen by design |
+| `03_master_working.txt` | Current live state, dominant blocker, and next sensible move |
+| `04_decision_log.txt` | Already-won decisions already in effect |
+| `05_latent_ideas.txt` | Live unresolved material not yet stable enough for promotion |
+| `06_ai_to_ai.txt` | Lateral kernel governing agent behavior inside a Signal Rail instance |
+| `07_guided_prompts_test.txt` | Guided paths for safer starts, rebuilds, reviews, and routing passes |
+| `08_surface_map.txt` | Technical topology, entrypoints, sensitive surfaces, and minimal runbook |
+| `09_handoff_reentry.txt` | Continuity and re-entry support between sessions |
+| `97_field_findings.txt` | Temporary lateral capture during an active pass before routing or discard |
+| `98_parking.txt` | Useful but not currently active material |
+| `99_archive.txt` | Closed, historical, or no-longer-live material |
+| `init_signal_rail.bat` | Windows launcher for the bootstrap |
+| `init_signal_rail.ps1` | PowerShell script that performs the bootstrap logic |
+
+## The deployed instance is the tool, not the project
+
+`AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` marks a folder as the tool surface, not as the host project being governed. An agent reading a deployed instance must still independently close what the host project is, what the current working object is, and what mode and authority are in play. Do not treat the presence of the marker as a substitute for frame closure.
+
+## What to do immediately after bootstrap
+
+Once the 17 files exist in the target folder, the correct entry sequence is:
+
+<Steps>
+  <Step title="Read 00_runtime_entry.txt first">
+    This file governs valid entry and correct system reading. It must be read before the system is used. Do not skip it in favour of going straight to a canonical.
+  </Step>
+  <Step title="Read 06_ai_to_ai.txt second">
+    After entry is valid, read the lateral kernel. This activates Signal Rail protocol for the session and governs how the agent may move through the system.
+  </Step>
+  <Step title="Close the working frame">
+    Close host project, working object, and active mode before any writing. Reading does not authorize writing. Understanding does not authorize promotion.
+  </Step>
+  <Step title="Fill 01_orientation.txt">
+    Describe the host project — not Signal Rail — in the orientation file. This closes project identity, perimeter, and reading frame.
+  </Step>
+  <Step title="Fill 03_master_working.txt">
+    Write the current live state, dominant blocker, and next sensible move. The bootstrap script auto-patches today's date; fill the rest by hand.
+  </Step>
+  <Step title="Continue from the textual system">
+    Use canonicals by level. Use `97_field_findings.txt` only when you want to keep lateral findings readable before routing or discarding them.
+  </Step>
+</Steps>
+
+## Localization
+
+If you need a non-English instance, use the **SR Localization Kit** to create a separate localized copy **before** you begin working from the instance. Do not localize the baseline in place. The Localization Kit is designed for one job: turning the international baseline into one personal localized copy. It is not a runtime translation layer and is not a way to relocalize a live instance mid-project.

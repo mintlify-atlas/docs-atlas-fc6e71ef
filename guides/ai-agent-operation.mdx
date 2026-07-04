@@ -1,0 +1,369 @@
+---
+title: "How to operate Signal Rail with an AI agent safely"
+sidebarTitle: "AI Agent Operation"
+description: "How AI agents activate, operate, and stay governed inside a Signal Rail instance — covering identity, modes, triggers, validation, and return format."
+---
+
+An AI agent operating inside a Signal Rail instance is not a free-form assistant. It is a governed participant that must close its own frame — host project, mode, source authority — before it reads, routes, proposes, or writes anything. The lateral kernel `06_ai_to_ai.txt` is the file that defines this behavior. It does not make every AI conversation into a document-management session. It governs what the agent is allowed to do once it has been activated inside the right folder with the right entry layer.
+
+## Activation
+
+Before `06_ai_to_ai.txt` does anything, `00_runtime_entry.txt` must be read in the current session. This is not optional and not implied. `00_runtime_entry.txt` is the reference-entry layer. It closes valid entry, minimum read order, false entrypoints, and the activation threshold. `06_ai_to_ai.txt` is the execution layer. Neither operates safely without the other.
+
+**Exact activation command:**
+
+```text
+read 06_ai_to_ai.txt
+```
+
+**Prerequisites:**
+
+- `00_runtime_entry.txt` must already be read in the current session
+- If it has not been read, return to `00_runtime_entry.txt` before proceeding
+
+**Effect of activation:**
+
+- Activates the Signal Rail protocol
+- Does **not** bootstrap automatically
+- Does **not** classify or write automatically
+- Does **not** infer the host project automatically
+
+**Deployed instance marker:**
+
+If `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` is present in the folder, treat that folder as a deployed Signal Rail instance. This marker tells the agent it is operating inside the tool surface, not the host project itself. The marker file does **not** identify the host project, the current working object, or the governing authority by default. The agent must still close all of those before substantive action.
+
+<Warning>
+If doubt concerns entry validity, minimum read, or correct system reading, return to `00_runtime_entry.txt` before proceeding. Do not treat activation as authorization to write.
+</Warning>
+
+---
+
+## Section 1 – Identity State
+
+The most important orientation an agent can have inside a Signal Rail instance is this: **Signal Rail is not the host project**. It is the document governance system used to govern the host project. Every canonical file inside Signal Rail is a container for host-project material, but Signal Rail itself is not that project.
+
+`06_ai_to_ai.txt` is a **lateral kernel**. It governs protocol behavior horizontally across the system. It is not host-project canonical content. It does not describe what the host project is, does, or decides. It defines how the agent reads, stops, asks, routes, proposes, and writes.
+
+**First three things to close on activation:**
+
+1. The host project — what real project is being governed here?
+2. The active mode — what is the agent permitted to do?
+3. Source authority — which file or person governs the level being touched (if needed)?
+
+### Modes
+
+Only one active mode is allowed at a time. A mode change changes what is permitted. Attempting to perform an action from the wrong mode is a protocol violation.
+
+| Mode | Description |
+|---|---|
+| **orientation** | Default startup mode. Read-only. Does not authorize writing or promotion. |
+| **reference** | Reading and comparison. No canonical writing. |
+| **review** | Active review of authority, risk, and rewrite safety. No canonical writing. |
+| **ingest** | Ingesting material from declared sources into the right containers. |
+| **work** | Active canonical work with authority closed. |
+| **structure** | Required when touching `01_orientation.txt`, `02_protocol_freeze.txt`, or `06_ai_to_ai.txt`. |
+
+<Warning>
+Use **structure mode** exclusively when the target is `01`, `02`, or `06`. If a task starts in another mode and structure mode becomes necessary, stop and ask before crossing. Do not assume the mode boundary is open.
+</Warning>
+
+### Minimum Read Requirements
+
+Before substantive action, the agent must read at minimum:
+
+- `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` — if present
+- `01_orientation.txt`
+- `03_master_working.txt`
+
+Conditional additional reads:
+- `04_decision_log.txt` — if decisions may be touched
+- `02_protocol_freeze.txt` — if identity, freeze, or structure may be touched
+- `08_surface_map.txt` — if technical surface, entrypoints, sensitive files, or critical env/deps may be touched
+
+---
+
+## Section 2 – Canonical State
+
+Each canonical file governs one level and only that level. Lateral surfaces do not override canonicals. Authority flows from the file that governs the touched level, not from recency, cleanliness, or confidence.
+
+### Canonical authority hierarchy
+
+| File | Governs | Authority scope |
+|---|---|---|
+| `01_orientation.txt` | Project identity, perimeter, and reading frame | Closes project meaning; does not override 02, 03, or 04 |
+| `02_protocol_freeze.txt` | Identity-level constants | Hard-to-reopen constants; authority on identity level |
+| `03_master_working.txt` | Current live project state | Authority on current intended work state |
+| `04_decision_log.txt` | Already-won decisions in effect | Authority on taken decisions |
+| `05_latent_ideas.txt` | Live unresolved material | Interim container; not permanent archive |
+| `06_ai_to_ai.txt` | Lateral kernel: protocol behavior | Authority on horizontal protocol behavior |
+| `07_guided_prompts_test.txt` | Guided prompt flows | Authority on guided question flow and safe prompt flows |
+| `08_surface_map.txt` | Technical surface map | Authority on entrypoints, sensitive surfaces, minimal runbook, critical env/deps |
+| `09_handoff_reentry.txt` | Continuity and re-entry support | Non-canonical by default; does not override canonical truth |
+| `97_field_findings.txt` | Temporary lateral capture | Not project memory; no canonical authority |
+| `98_parking.txt` | Useful but not live material | Useful but not active |
+| `99_archive.txt` | Closed, historical, duplicate | Closed or no-longer-live material |
+
+### Cross-file rules
+
+- If a canonical file contains an **AI QUICK NOTE** and an **AI SECTION**, use the AI SECTION as the operational rule source. Do not derive operational rules from the human section when the AI SECTION is present.
+- `03` is not an orientation log or boot log.
+- `04` records a line only after it has already won and is already in effect. It is not brainstorming or a deduced decision.
+- `05` is not permanent archive. It is a controlled hold for live but unresolved material.
+- `03` may show a live line before `04` records it. `04` records it only after it has won.
+- Files outside canonical containers carry no authority over freeze, decisions, or project identity.
+- Non-canonical lateral support files do not override canonical containers and do not carry project truth by default.
+- `09` output is non-canonical by default. It may summarize canonical state for continuity, but canonical updates must be routed separately.
+
+### ID families
+
+Canonical IDs stay local to their container family. Cross-file references stay as references — they do not become new local IDs in another file.
+
+| File | ID prefix |
+|---|---|
+| `02_protocol_freeze.txt` | `F-xx` |
+| `04_decision_log.txt` | `D-xx` |
+| `05_latent_ideas.txt` | `L-xx` |
+| `98_parking.txt` | `P-xx` |
+| `99_archive.txt` | `A-xx` |
+
+### `links to` vs `external reference`
+
+- **`links to`** — for canonical, internal, or explicitly host-safe references that the system should validate as part of canonical reading
+- **`external reference`** — for useful references outside the canonical set or outside the local surface; does not carry canonical authority by default
+
+### Append-driven entries contract
+
+Files `04`, `05`, `08`, `09`, `97`, `98`, and `99` are append-driven. Each must contain exactly one valid entries zone:
+
+```text
+--- ENTRIES START ---
+...
+--- ENTRIES END ---
+```
+
+Rules for the entries contract:
+
+- Exactly one `--- ENTRIES START ---` and one `--- ENTRIES END ---`, in correct order
+- Each file keeps its own local empty template inside the entries zone — do not normalize all files into one generic template
+- `[TEMPLATE ONLY]` blocks are scaffolding, not live entries, and carry no canonical authority
+- A structured read must not count `[TEMPLATE ONLY]` blocks as real entries
+- Canonical write for append-driven files must insert entries only inside the entries zone
+- If the marker contract is missing, duplicated, malformed, or ambiguous, **stop and ask before writing**
+
+---
+
+## Section 3 – Trigger and Anti-Book Discipline
+
+The system may open trigger-based delta review proposals. It may **not** write canonical updates autonomously. A trigger opens review — it does not write.
+
+<Note>
+Only `03`, `04`, and `08` may receive automatic trigger proposals. Files `01`, `02`, and `05` never receive automatic triggers. Files `98` and `99` are outside the normal trigger system.
+</Note>
+
+### When triggers fire
+
+| File | Trigger fires when… |
+|---|---|
+| `03_master_working.txt` | The current objective changes, the dominant blocker changes, or a new line enters current live work |
+| `04_decision_log.txt` | "Won against" can be stated for a decision already in effect |
+| `08_surface_map.txt` | A path changes, an entrypoint changes, or a critical dependency changes |
+
+### What triggers must not do
+
+- Do not trigger from broad semantic inference
+- Do not trigger from background interpretation of free text
+- Trigger only from observable workflow events
+- Review requires explicit human confirmation before any canonical update
+
+### Anti-book discipline
+
+Horizontal system rules live in `06`. Canonical files define themselves — they do not restate cross-file system rules. Local canonicals may declare only their own family rule or local anchor hygiene when that helps prevent a miswrite. They may not restate the full horizontal kernel. Do not add local references to `06` by default. Local additions to `06` are not allowed without explicit human authority.
+
+---
+
+## Section 4 – Kernel Refresh Discipline
+
+The system may open `06` reread proposals. It may not infer internal degradation as fact.
+
+### What triggers a reread proposal
+
+- A second stop-and-ask in the same task
+- Before crossing into structure mode from another mode
+- Before touching `01`, `02`, `04`, or `06`
+- A live conflict between canonicals and implementation
+- A live conflict between canonicals
+
+### What does NOT trigger a reread proposal
+
+- Task length alone
+- Dense conversation alone
+- Broad semantic suspicion
+
+Trigger reread only from **observable protocol-risk events**.
+
+<Note>
+A `06` reread proposal does not authorize writing. It re-closes protocol before the task continues.
+</Note>
+
+---
+
+## Section 5 – Project Memory Gate
+
+Four conditions force a `06` reread before writing or moving content:
+
+1. Before **creating** canonical content
+2. Before **moving** content between canonical files
+3. Before **absorbing** content into a canonical file
+4. Before **rewriting** canonical content
+
+The gate does **not** trigger from:
+- Notes not being routed into canonicals
+- Free text outside the canonical update flow
+
+---
+
+## Section 6 – Validation State
+
+Before placing anything, close object, mode, and container. Extract first. Classify second. Propose destination third.
+
+### Classification rules
+
+- Classify internal units, not only files
+- Separate file role from content role
+- If one file contains units with different destinations, separate them before classification
+- Do not use date, format, filename, folder, or cleanliness as proof of real role
+- Do not assume the newest file is the live one
+- If you find multiple similar versions, do not pick the live one too early
+- First close whether content is live work, latent, or continuity — only then force a finer canonical level if needed
+
+### Stop-and-ask conditions
+
+Ask if any of these are unclear:
+- Object, mode, source authority, or live source
+- Context still branches into more than one valid reading
+- A choice could change meaning, continuity, destination, freeze, or structure
+- Canonical docs and implementation disagree
+- Context is missing — do not complete by invention
+
+### The convergence requirement
+
+Every session must report whether the task is converged or still divergent.
+
+- **If converged**: promote to the right file, or state why it still remains in `05`
+- **If not converged**: do not promote; declare divergence and propose the Minimally Viable Path
+
+### The divergence declaration rule
+
+If more than one valid path remains, do not promote. Declare divergence and propose the Minimally Viable Path.
+
+### The structural failure test
+
+Before promoting a structurally strong unit, test one realistic failure condition:
+- If one realistic failure condition breaks it → do not promote it
+- If no realistic failure condition breaks it → increase confidence in its strongest plausible level
+
+Before updating `02`, `03`, or `04`, declare what else the change touches. If what the change touches is unclear or high-risk, stop and ask before writing.
+
+<Warning>
+If protocol is violated, stop processing and return only: the violated rule, the blocked action, and the missing clarification.
+</Warning>
+
+---
+
+## Section 7 – Interaction Discipline
+
+The agent's operating language follows the user. It does not infer recording language from interaction language, input format, filename, or folder alone.
+
+| Rule | What it means |
+|---|---|
+| Language follows user | Speak and ask in whatever language the user uses |
+| Preserve source language | Do not change language in canonical text until recording requires it |
+| Spoken input rule | Spoken input is not canonical text |
+| Cleaner ≠ more authoritative | Do not infer authority from cleanliness or recency |
+| One question at a time | Ask only the minimum needed to continue safely |
+| No question dumps | Do not ask multiple intake questions at once |
+| Do not move on prematurely | Do not ask the next question until the current doubt is closed enough |
+
+---
+
+## Section 8 – Operating Procedure
+
+The full move order for every session is sequential and must not be reordered. No step authorizes skipping a prior step.
+
+<Steps>
+  <Step title="Activate">
+    Execute `read 06_ai_to_ai.txt` after `00_runtime_entry.txt` has been read. Activation enables the protocol — it does not authorize bootstrap or writing.
+  </Step>
+  <Step title="Close object">
+    Identify and close the current working object. What is being worked on in this session? Separate project work, source analysis, and system work.
+  </Step>
+  <Step title="Close mode">
+    Identify and close the active mode. This limits allowed actions before reading or writing. Only one mode may be active at a time.
+  </Step>
+  <Step title="Complete minimum read">
+    Read `01_orientation.txt` and `03_master_working.txt` at minimum. Add conditional reads as required by the task (see Section 1).
+  </Step>
+  <Step title="Identify source authority">
+    If the task touches a level with multiple candidate sources, close which file or person governs that level before proceeding.
+  </Step>
+  <Step title="Clarify task">
+    Ask the minimum needed to understand the task well enough to proceed safely. One question at a time.
+  </Step>
+  <Step title="Extract">
+    Pull material from sources without classifying it yet. Read the source material in the current session before routing or rewriting.
+  </Step>
+  <Step title="Classify">
+    Classify extracted units by role, level, and stability. Do not route by apparent importance, writing quality, or conversational momentum.
+  </Step>
+  <Step title="Propose destination">
+    Propose where each classified unit belongs. Do not force promotion if destination is not closed enough.
+  </Step>
+  <Step title="Write only if clear">
+    Write only if destination, level, authority, and mode all allow it. If any gate fails, stop and ask. If destination is still unclear, hold the unit in `05_latent_ideas.txt`.
+  </Step>
+</Steps>
+
+### Operations defined
+
+| Operation | Meaning |
+|---|---|
+| `read 06_ai_to_ai.txt` | Activate the protocol; does not authorize bootstrap or writing |
+| **preserve** | Save without losing the right context |
+| **read and rework** | Read the material and absorb it into the right canonical container |
+| **absorb** | Move content from latent or scattered into one of the live canonical files |
+| **park** | Move useful but inactive material to `98_parking.txt` |
+| **archive** | Move historical or closed material to `99_archive.txt` |
+| **unearth** | Review entries in `05` and choose: absorb, park, or leave alive |
+
+### What NOT to do
+
+- Do not create a new file if a canonical container already exists
+- Do not perform actions from the wrong mode
+- Do not touch `01`, `02`, or `06` from work, ingest, or reference without an explicit structure mode reading
+- Do not write from orientation mode
+- Do not promote until destination is clear enough to change structure, authority, or current live state
+- Do not use `03` for proposals, likely next moves, or strong ideas that are not already adopted as current live work
+- Do not treat an AI recommendation as a decision just because it sounds strong
+- Do not use `02` for strong strategy that is still being tested
+- Do not use `04` for lines that are not already in effect
+- Do not merge contents with different destinations into the same summary
+- Do not fill gaps with fake certainty
+
+---
+
+## Required Return Format
+
+After every session the agent must return this block in full. No field may be omitted.
+
+```text
+host project:
+mode used:
+sources read:
+state of convergence:
+what you extracted:
+where you put it:
+what remains uncertain:
+recommended next step:
+```
+
+This format is required by `06_ai_to_ai.txt` and enforced by the return rule in `00_runtime_entry.txt`. The minimum return format (`state:` / `next correct move:`) applies only during the pre-activation phase when entry validity is still being established. Once execution is valid, the full eight-field return governs.

@@ -1,0 +1,107 @@
+---
+title: "Master Working (03): the current live project state"
+sidebarTitle: "Master Working"
+description: "03_master_working.txt tracks the live project state: objective, blocker, work in progress, open questions, active risks, and next move."
+---
+
+`03_master_working.txt` is where the project is right now. Not where it came from, not what it might become — where it actually is, what it is trying to do, what is blocking it, and what the next sensible move is. Of all the Signal Rail canonicals, `03` changes most frequently, because it tracks motion. A session that moves the project substantially should end with an updated `03`. A project read without first consulting `03` risks acting on stale or incomplete information about the current live state.
+
+## What 03 is for
+
+This file holds the current live state of the project. It should help someone understand very quickly what is truly active now: current objective, dominant blocker, work already in progress, open questions with real impact, active risks, and the next concrete move.
+
+## The nine sections
+
+`03` uses nine stable sections. These are operational anchors — keep them stable and avoid unnecessary duplicates when the file is live.
+
+| Section | What to write |
+|---|---|
+| **Project Name** | The name of the project this file serves |
+| **Last Updated** | Date of the last substantial update (for reading freshness, not a full timeline) |
+| **Current Objective** | One sentence: what the project is trying to achieve now — oriented without too much detail |
+| **Current Blocker** | The node that is really slowing the project now — not every problem, the one that weighs most today |
+| **Current State** | Where the project is now in a few dense but readable lines — a line already in use may appear here even if not yet a recorded decision |
+| **Work In Progress** | Only the lines of work that are actually active — if a line no longer has real energy, it should not stay here |
+| **Open Items That Matter Now** | Only what is about to enter the work or what is blocking the present — not a second notes file |
+| **Real Open Questions** | Questions that have real impact — questions that can change direction, grammar, product, or continuity |
+| **Active Risks** | Only live risks — where the project can deform, slow down, or break if no action is taken |
+| **Next Step** | The next concrete and sensible move — one clear move is better than an elegant but fake plan |
+
+## What does NOT go here
+
+<Warning>
+Mixing levels in 03 makes it unreliable as a live state signal. Wrong content here either inflates it with stable material or deflates it with unproven proposals.
+</Warning>
+
+| What | Where it belongs instead | Why |
+|---|---|---|
+| Stable identity of the project | `01_orientation.txt` | Durable description, not the present |
+| Hard-to-reopen constants | `02_protocol_freeze.txt` | Stable constraints, not temporary state |
+| Decisions already taken and in effect | `04_decision_log.txt` | Records what has already won |
+| Strong proposals not yet truly in the work | `05_latent_ideas.txt` | Not yet part of the current live state |
+| Technical topology (repos, entrypoints, sensitive surfaces, runbook) | `08_surface_map.txt` | Technical map, not operational state |
+| Full history of everything that happened | `99_archive.txt` | 03 is not an archive |
+| Infinite backlog or session diary | Nowhere appropriate | Widens the file without helping read the present |
+
+## When to update it
+
+Update `03` when the operational picture truly changes:
+
+- A line really enters current work
+- A blocker stops being secondary and becomes dominant
+- A session moves the project in a substantial way
+
+Do **not** update it for every micro-move.
+
+<Tip>
+Before closing a session, realign at least: Current State, Work In Progress, Real Open Questions, Active Risks, Next Step. If during the session a choice has already clearly won, update the decision file too.
+</Tip>
+
+## The non-promotion rule
+
+Do not use `03` for proposals, likely next moves, or strong ideas that have not already been adopted as current live work. A plausible line is not live work. If something stops being only an idea and starts genuinely guiding the work, it may appear in `03`. Until then, it belongs in `05`.
+
+## Relationship with 04
+
+`03` and `04` operate at adjacent levels, and their interaction matters:
+
+- `03` may show a live line before `04` records it — a line already guiding work may appear in Current State or Work In Progress even if it has not yet been formally recorded as a decision.
+- `04` records only after a choice has already won — not when it looks close to winning.
+- If listing already-closed decisions in `03`, you are probably writing in the wrong file.
+
+## Trigger rule
+
+`03` may trigger an update only when:
+
+- The current objective changes
+- The dominant blocker changes
+- A new line enters current live work
+
+<Note>
+Cross-file IDs used in 03 must point to real targets. Use `external reference` for useful references outside the canonical set or outside the current local surface.
+</Note>
+
+## Typical errors
+
+<Warning>
+- Using 03 as an infinite diary
+- Treating it as a disguised decision log
+- Filling it with vague lines that do not help anyone understand the real moment
+- Putting strong ideas here that have not yet truly entered the work
+- Using it to pretend a line is live just because it feels like the right next move
+</Warning>
+
+<CardGroup cols={2}>
+  <Card title="Orientation (01)" icon="compass" href="/rails/orientation">
+    Stable project identity — what stays the same while 03 changes.
+  </Card>
+  <Card title="Decision Log (04)" icon="scale-balanced" href="/rails/decision-log">
+    Choices already won — the output destination for lines that have closed in 03.
+  </Card>
+  <Card title="Latent Ideas (05)" icon="seedling" href="/rails/latent-ideas">
+    Where proposals live until they are truly adopted into current live work.
+  </Card>
+  <Card title="Handoff & Re-entry (09)" icon="arrows-rotate" href="/rails/handoff-reentry">
+    Session continuity layer that summarizes 03 state without overriding it.
+  </Card>
+</CardGroup>

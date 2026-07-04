@@ -1,0 +1,152 @@
+---
+title: "Latent Ideas (05): the anti-stall buffer for live material"
+sidebarTitle: "Latent Ideas"
+description: "05_latent_ideas.txt is the anti-stall buffer. L-xx entries keep what matters visible without forcing premature promotion into the wrong container."
+---
+
+`05_latent_ideas.txt` is the place where things matter but have not yet found the right home. It is not a bin for scattered notes, and it is not a buffer for avoiding decisions. It is an active, readable, and recoverable layer for material that genuinely weighs on the project but is not yet stable enough for `03`, `04`, or `02`. Signal Rail calls it an anti-stall buffer: it prevents important material from disappearing into noise, while also preventing premature promotion that could mislead current work or corrupt the decision log.
+
+## What 05 is for
+
+This file keeps together what matters but has not yet found the right home. Ideas, sparks, tensions, risks, or useful notes can enter here when they have not yet become live work, decision, parking, or archive. It is the place where material stays visible without being forced into a container it is not ready for.
+
+## The lifecycle
+
+Material in `05` has a direction. It enters, matures, and exits:
+
+<Steps>
+  <Step title="Enters as new">
+    A spark or idea arrives. You do not fully understand it yet, but you do not want to lose it.
+  </Step>
+  <Step title="Moves to to review">
+    You reread it and it still holds. It matters, but it is not yet ready to move.
+  </Step>
+  <Step title="Rises to to absorb">
+    The direction has tightened and the destination has become clearer. It is almost ready to leave.
+  </Step>
+  <Step title="Exits toward the right container">
+    It is promoted into `01`, `02`, `03`, `04`, `08`, `98`, or `99` — depending on what it turned out to be.
+  </Step>
+</Steps>
+
+## Allowed states
+
+| State | Meaning |
+|---|---|
+| `new` | It entered here but you do not understand it well yet |
+| `to review` | You know it matters, but not yet enough to move it |
+| `to absorb` | It is almost ready to leave this file |
+| `parked` | You are not handling it now; if it stays out of cycle, move it out |
+| `dead` | It no longer matters as a live note; if you want to keep a trace, move it out |
+
+## What goes here
+
+| Content | Why it belongs here |
+|---|---|
+| Strong ideas not yet closed | They matter but are not ready for another file yet |
+| Short sparks you do not want to lose | Still small but may become useful |
+| Still-ambiguous nodes | Not yet clear enough to move elsewhere |
+| Useful pieces whose destination is not yet clear | 05 exists to hold what weighs on the project but does not yet have a home |
+| Things weighing on the project but not yet clear enough to belong elsewhere | Not mature enough to be closed yet |
+
+## What does NOT go here
+
+| What | Where it belongs | Why |
+|---|---|---|
+| Things already truly in current live work | `03_master_working.txt` | Already part of the live present |
+| Decisions already taken and in effect | `04_decision_log.txt` | No longer open |
+| Technical maps already closed enough (repos, entrypoints, deps) | `08_surface_map.txt` | Already has a home |
+| Things out of cycle but still useful | `98_parking.txt` | Not weighing now, may matter later |
+| History, discarded, closed, or dead material | `99_archive.txt` | No longer belongs to live work |
+| Whole files dropped in without extraction | Nowhere appropriate | 05 is for readable notes, not undifferentiated masses |
+
+## Entry types
+
+`05` supports two entry types: **Spark** for short traces and small intuitions, and **Idea** for stronger theses with more complete shape. Both use `L-xx` IDs.
+
+### Spark template
+
+```
+- id: L-xx
+- Title: Short readable name.
+- Origin: Where it comes from.
+- Why It Matters: Why you do not want to lose it right now.
+- Possible Destination: live work, decision, parking, archive, or still here.
+- Likely Direction: identity, freeze, live work, decision, or still unclear.
+- State: new, to review, to absorb, parked, dead.
+- links to: nearby sources or nodes.
+- external reference: useful files or references outside the canonical set.
+- Next Step: The minimum move that keeps it from staying still.
+- Reopening Trigger: When it would become central again.
+```
+
+### Idea template
+
+```
+- id: L-xx
+- Title: Short clear formulation.
+- Thesis: The live sentence of the idea.
+- Why It Is Strong: What leverage it could give the project.
+- Where It Touches the Project: Which parts it really moves.
+- What Is Still Missing: What is not yet closed enough.
+- Likely Direction: identity, freeze, live work, decision, or still unclear.
+- State: new, to review, to absorb, parked, dead.
+- links to: connected sources, decisions, or project parts.
+- external reference: useful files or references outside the canonical set.
+- If It Matures, Where It Would Go: live work, decision, parking, archive, or still unclear.
+- Next Step: What to do to make it move forward.
+- Reopening Trigger: What would need to happen to make it urgent again.
+```
+
+<Note>
+Local entries in 05 use only `L-xx` IDs. Cross-file IDs stay references in `links to`, `origin`, or body text — they do not become new local IDs here.
+</Note>
+
+## The ENTRIES START/END zone
+
+All entries must be written inside:
+
+```
+--- ENTRIES START ---
+...
+--- ENTRIES END ---
+```
+
+`[TEMPLATE ONLY]` in the entries zone is scaffolding only. It does not count as a live latent entry. The marker contract must be valid: exactly one start marker, exactly one end marker, correct order.
+
+## 05 gravity
+
+If a unit in `05` shows repeated structural relevance, state its strongest plausible level — `01`, `02`, `03`, or `04` — without treating AI-suggested gravity as authority. AI evaluation of gravity does not count as a promotion decision until the user confirms it.
+
+<Warning>
+Do not treat a note as strong just because it is well written. Do not treat an AI evaluation as final without human validation. If you think something trends toward freeze or decision, treat it as a sensitive case and ask for human validation.
+</Warning>
+
+## Typical errors
+
+<Warning>
+- Leaving things here for months without rereading them
+- Keeping here material that has already become live work or decision
+- Using 05 so you never have to decide
+- Treating a note as strong just because it is well written
+- Treating an AI evaluation as final without human validation
+</Warning>
+
+<Tip>
+It is better to keep a still-alive note in 05 than to promote it too early into the wrong container. Routing errors are easier to correct than premature promotions.
+</Tip>
+
+<CardGroup cols={2}>
+  <Card title="Master Working (03)" icon="fire" href="/rails/master-working">
+    Where ideas graduate to when they have truly entered current live work.
+  </Card>
+  <Card title="Decision Log (04)" icon="scale-balanced" href="/rails/decision-log">
+    Where ideas graduate to when they have won against a real alternative.
+  </Card>
+  <Card title="Protocol Freeze (02)" icon="snowflake" href="/rails/protocol-freeze">
+    Where ideas graduate to when they have proven they are identity constants.
+  </Card>
+  <Card title="Lateral Files (97 / 98 / 99)" icon="layer-group" href="/rails/lateral-files">
+    Parking and archive — where out-of-cycle or closed material exits.
+  </Card>
+</CardGroup>

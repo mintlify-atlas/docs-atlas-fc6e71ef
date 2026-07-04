@@ -1,0 +1,311 @@
+---
+title: "Guided prompt flows for safer Signal Rail sessions"
+sidebarTitle: "Guided Prompts"
+description: "The seven guided prompt flows in 07_guided_prompts_test.txt — when to use each, what questions they ask, and what each question protects."
+---
+
+Guided prompts are not casual starting suggestions. They are structured question flows that exist for higher-risk operating situations — moments when a normal session opening is not tight enough to protect against wrong entry, premature promotion, or authority confusion. Each guided prompt in `07_guided_prompts_test.txt` asks the minimum useful questions in a defined order, closes a specific kind of risk, and returns a structured output before any substantive action begins. They are the difference between starting from a closed frame and starting from assumption.
+
+## Common rules for all guided prompts
+
+All seven guided prompt flows share the same foundation. Before running any of them:
+
+1. Read `00_runtime_entry.txt` first
+2. Read and follow `06_ai_to_ai.txt`
+3. If `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` is present, treat the folder as the tool surface — not the host project
+
+Additional rules that apply across every flow:
+
+- Ask **one question at a time**. Do not dump all questions at once.
+- Keep each question short and allow free-form answers.
+- Reduce ambiguity before asking. Ask for the unresolved hinge, not a full re-brief.
+- Do not move on until the current point is clear enough. Refine the same point if the answer is partial.
+- Skip what is already clear.
+- If host project or mode stays unclear after asking, stop and ask before proceeding.
+- Use the user's language unless asked otherwise. Do not infer recording language from interaction language, input format, filename, or folder.
+- Preserve source meaning and source language until recording requires change.
+- Do not turn spoken input into canonical text too early.
+- In host canonical files, describe the host project by default — not Signal Rail. Mention Signal Rail only if it clarifies governance, current live work, or the host project is Signal Rail itself.
+- Be brief and concrete.
+
+### Meta delivery rules
+
+- If the user asks which prompt fits best, recommend one best fit first and briefly explain what it is for.
+- When asked to provide a prompt from `07_guided_prompts_test.txt`, return the original prompt **verbatim** and ready to use.
+- Do not translate the original prompt unless the user explicitly asks.
+- If translation or adaptation is requested, provide the original first and the adapted version second.
+
+---
+
+## Prompt overview
+
+| Prompt | When to use | Key protection |
+|---|---|---|
+| **Start guided** (Prompt 3) | Start of a live-enough working session | Closes host project, authority, object, mode, goal, and source scope before action |
+| **New project bootstrap guided** (Prompt 4) | Instance is new or mostly template | Opens a new instance without inventing project reality |
+| **I have an idea guided** (Prompt 5) | User offers a new idea or raw thought | Places material at the right level without early promotion |
+| **Confused sources and authority rebuild guided** (Prompt 6) | Many files, unclear sequence, uncertain authority | Rebuilds source authority before ingest or rewrite |
+| **Review before rewrite guided** (Prompt 7) | Before changing text that may be cleaner than it is true | Reviews authority and risks before any rewrite |
+| **Where does this go guided** (Prompt 8) | One unit matters but its destination is uncertain | Places one extracted unit in the right canonical container |
+| **Retro timeline to canonicals guided** (Prompt 9) | Project history needs reconstruction before backfilling canonicals | Builds a defensible timeline before writing canonicals |
+
+---
+
+## The seven guided prompts
+
+<Accordion title="Prompt 3 — Start guided">
+
+**Goal:** Open a safe working session in Signal Rail. Close the minimum sufficient frame — host project, authority, working object, mode, goal, and source scope — before substantive action.
+
+**When to use:** At the start of a session inside a project that is already live enough to work on.
+
+**Deployed instance note:** If `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` is present, the current folder is the tool surface — not proof of the host project.
+
+### Questions in order
+
+| # | Question | Why it is asked |
+|---|---|---|
+| 1 | What is the host project? | Closes the real project before any mode or container decision. (e.g., SRA, Officina88 docs, Signal Rail itself) |
+| 2 | Who has decision or document authority on this project? | Tells you who can confirm freeze, live state, and source conflicts. (e.g., the user, a maintainer, a lead, or no single owner yet) |
+| 3 | What is the current working object? | Separates project work, source analysis, and system work. (e.g., fix the kernel, ingest legacy docs, review freeze authority) |
+| 4 | What is the active mode for this session? | Limits allowed actions before reading or writing. (e.g., orientation, reference, review, ingest, work, structure) |
+| 5 | What is the current session goal? | Prevents scope drift. (e.g., review the kernel test, extract decisions, clarify freeze authority) |
+| 6 | Which sources were explicitly indicated for this session? | Tells you what may be read without guessing. (e.g., specific files, a folder, open tabs, one conversation) |
+| 7 | Is any live source or authority still uncertain? | Tells you whether to remain in reference or review. (e.g., the log may be newer but not more authoritative) |
+
+**Return format:**
+```text
+host project:
+owner or authority:
+working object:
+mode used:
+sources to read next:
+what remains uncertain:
+recommended next step:
+```
+
+</Accordion>
+
+<Accordion title="Prompt 4 — New project bootstrap guided">
+
+**Goal:** Open a new or near-blank Signal Rail instance without inventing project reality. Close real use, perimeter, authority, and first live objective before writing.
+
+**When to use:** When a Signal Rail instance is new, almost empty, or still mostly template — with no reliable `01`–`03` yet.
+
+**03 reconstruction note:** If `03_master_working.txt` is blank or too weak, you may reconstruct a first working state from scattered sources. Reconstruct the present live state — not the full project history. Use temporal or historical references only when they help close what is live now. If the reconstruction still branches too much, reduce the branching to the smallest live hinge. Stop before writing `03` only if that hinge still cannot be closed safely.
+
+**Boundary note:** Use Signal Rail governance questions to close boundaries — not to fill host identity text by default.
+
+### Questions in order
+
+| # | Question | Why it is asked |
+|---|---|---|
+| 1 | What is the host project? | Closes the real project that Signal Rail will govern. (e.g., repo name, product name, research project name) |
+| 2 | Who validates project truth? | Tells you who can confirm what is real versus template, draft, or idea. (e.g., founder, maintainer, product lead, or only the user) |
+| 3 | What is the project, in one clear description? | Prevents filling orientation from assumption. (e.g., a product, a protocol, a documentation system, an experiment) |
+| 4 | What is Signal Rail supposed to govern here? | Separates governance from product, implementation, and support material. (e.g., the whole project state, only protocol docs, one product branch) |
+| 5 | What is already real, and what is still template, sketch, or idea? | Prevents fake bootstrap. (e.g., freeze exists, working doc is still template) |
+| 6 | What is the current project perimeter? | Defines what is in scope now and what stays outside. (e.g., one repo, one docs folder, one branch of work) |
+| 7 | Where does the project really live technically right now? | Closes the first version of `08` without guessing. (e.g., one repo, one deployed instance, one private docs surface, one critical entrypoint) |
+| 8 | What is the first real operational objective? | Gives `03` a real present state instead of filler. (e.g., establish freeze authority, ingest decisions, stabilize the kernel) |
+
+**Return format:**
+```text
+host project:
+authority:
+mode used:
+minimum sources to read:
+what is already real:
+what is still template:
+technical surface to map:
+what remains uncertain:
+recommended next step:
+```
+
+</Accordion>
+
+<Accordion title="Prompt 5 — I have an idea guided">
+
+**Goal:** Receive a raw idea in human language and place it at the right level of the project. Do not promote it too early.
+
+**When to use:** When the user says "I have an idea", "maybe we should", or offers a new thought without structure.
+
+### Questions in order
+
+| # | Question | Why it is asked |
+|---|---|---|
+| 1 | What is the idea, in your own words? | Preserves the original meaning before classification |
+| 2 | Why does this idea matter now? | Separates live leverage from loose speculation |
+| 3 | Does this feel more like a deep direction, a next move, or something to keep alive for later? | Narrows the right level without forcing internal labels too early. (e.g., a core direction, a move to make now, or something worth keeping alive) |
+| 4 | Is this idea already guiding current live work, or is it still only a proposal? | Prevents premature placement into `03` and avoids reusing decision IDs as if they were local idea IDs |
+| 5 | What is still uncertain about it? | Tells you whether it can move now or should stay unresolved |
+| 6 | Does it already have the shape and stability of live work or decision, or should it stay mobile for now? | Prevents early crossing into `03` or `04` when the idea still belongs in `05` |
+
+**Return format:**
+```text
+host project:
+working object:
+mode used:
+extracted idea:
+likely place:
+local 05 id if needed: use a new L-xx; keep any D-xx only as reference
+external reference if needed: use `external reference`, not `links to`
+what remains uncertain:
+recommended next step:
+```
+
+</Accordion>
+
+<Accordion title="Prompt 6 — Confused sources and authority rebuild guided">
+
+**Goal:** Handle messy, scattered, or misaligned sources before safe ingest or rewrite. Rebuild source authority and current live state before promoting, rewriting, or classifying too early.
+
+**When to use:** When there are many files, an unclear sequence, uncertain authority, or canonical files that appear to be out of sync.
+
+**Hard boundary:** Stay in reference or review until authority is clear enough for safe ingest or rewrite. Do not promote into canonicals while authority is still unresolved.
+
+**Deployed instance note:** If `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` is present, do not mistake the Signal Rail folder for the host project under analysis.
+
+**03 reconstruction note:** `03_master_working.txt` may be reconstructed from scattered sources when current live state is not directly available. Reconstruct the present live state — not the full timeline. Use timeline anchors and historical references only to infer what is live now. If the reconstruction is still too weak or branches into more than one valid present, stay in reference or review and ask.
+
+### Questions in order
+
+| # | Question | Why it is asked |
+|---|---|---|
+| 1 | What is the real host project for this material? | Closes the project before reading mixed material |
+| 2 | What is the current working object? | Separates project work, source analysis, and system work |
+| 3 | Which sources are intentionally in scope for this pass? | Limits reading to declared material |
+| 4 | What kind of confusion is present here? | Distinguishes scattered sources, timeline uncertainty, and canonicals out of sync. (e.g., mixed notes, unreliable dates, cleaner draft vs. older freeze, misaligned working doc and decision log) |
+| 5 | Which sources look most authoritative, and why? | Surfaces the governing candidates before classification |
+| 6 | Which sources best reflect what is live right now? | Separates current state from old truth or cleaner drafts |
+| 7 | Which sources look newer, cleaner, or more complete but may still be less authoritative? | Blocks false promotion from appearance |
+| 8 | What do you want from this pass: authority map, timeline rebuild, conflict map, or proposed destinations? | Closes the minimum safe output |
+| 9 | What is the minimum useful output of this pass? | Prevents overreach |
+| 10 | What is the smallest unresolved hinge still blocking safe continuation? | Keeps the pass narrow when authority is not fully closed yet |
+
+**Return format:**
+```text
+host project:
+working object:
+mode used:
+candidate sources:
+presumed source roles:
+authority conflicts:
+timeline anchors:
+current live state:
+safest next move:
+what remains uncertain:
+recommended next step:
+```
+
+</Accordion>
+
+<Accordion title="Prompt 7 — Review before rewrite guided">
+
+**Goal:** Review authority, risks, and rewrite safety before changing text. Separate what is truly governed or decided from what only sounds settled. Do not rewrite until the governing source is clear enough.
+
+**When to use:** Before rewriting a file, section, or source set that may be cleaner than it is true.
+
+**Hard boundary:** Stay in review. This prompt does not authorize rewriting — it opens a review that precedes any decision to rewrite.
+
+**03 reconstruction note:** If the rewrite target is `03` or current live state, review whether it describes the present or only reconstructs history. Historical references may support a `03` rewrite, but they do not authorize turning `03` into a timeline. Rewrite only the part that can be defended as current live state.
+
+**Boundary note for `01`:** If reviewing `01_orientation.txt`, remove text that exists only because of Signal Rail adoption unless the host project is Signal Rail itself.
+
+### Questions in order
+
+| # | Question | Why it is asked |
+|---|---|---|
+| 1 | What text or set of texts is under review? | Closes the rewrite target. (e.g., one kernel file, a working doc, a set of legacy notes) |
+| 2 | Which sources may govern that target? | Identifies live authority before cleanup. (e.g., freeze, master, decision log, explicit owner instruction) |
+| 3 | What seems already governed or decided, and what still sounds open? | Prevents rewriting open material as if it were settled |
+| 4 | Where do you suspect conflict or distortion risk? | Surfaces why rewrite may be dangerous. (e.g., a cleaner doc may be less true, two sources use different meanings) |
+| 5 | What outcome do you want from review? | Prevents premature rewriting. (e.g., identify the governing source, list risks, define rewrite-safe area) |
+
+**Return format:**
+```text
+host project:
+working object:
+mode used:
+governing sources:
+likely settled area:
+likely open area:
+conflicts found:
+rewrite-safe area:
+rewrite-unsafe area:
+recommended next step:
+```
+
+</Accordion>
+
+<Accordion title="Prompt 8 — Where does this go guided">
+
+**Goal:** Place one extracted unit in the right destination without dumping a whole file by default. Decide whether it stays live, waits, or becomes only reference.
+
+**When to use:** When one unit clearly matters but its right destination is still uncertain.
+
+### Questions in order
+
+| # | Question | Why it is asked |
+|---|---|---|
+| 1 | What exact unit are we placing? | Keeps the real unit small enough to classify safely. (e.g., one paragraph, one decision candidate, one latent idea) |
+| 2 | Where does the unit come from? | Preserves source context and authority clues. (e.g., a working doc, a conversation, a brainstorm file, a duplicate note) |
+| 3 | Is this unit project identity, a stable constant, current live work, a taken decision, technical surface map, useful but inactive, closed history, or still unresolved? | Closes level before destination |
+| 4 | What shape and stability does this unit already have? | Reduces routing anxiety and helps place the unit only after its level is clearer |
+| 5 | Why does the unit still matter? | Distinguishes live unresolved material from dead history. (e.g., it may affect current freeze, or it is only historical reference) |
+| 6 | What still prevents placing it safely now? | Tells you whether it should stay live, wait, or become only reference |
+
+**Return format:**
+```text
+host project:
+working object:
+mode used:
+source:
+extracted unit:
+proposed destination:
+what remains uncertain:
+recommended next step:
+```
+
+</Accordion>
+
+<Accordion title="Prompt 9 — Retro timeline to canonicals guided">
+
+**Goal:** Reconstruct a defensible project timeline before writing canonicals. Separate historical reconstruction from canonical promotion. Backfill Signal Rail for a project that was not governed by canonicals from day one.
+
+**When to use:**
+- The project history is short enough to reconstruct, but dense enough to create level confusion
+- The current chat contains a lot of memory, but the canonical files were created late
+- You need to infer identity, live state, decisions, latent material, parking, and archive from prior project evolution
+- You do not want to write directly into canonicals from scattered chat memory
+
+**Hard boundary:**
+- Do not write canonicals first — build the timeline first
+- Do not invent missing history just to complete the sequence
+- If a phase, transition, or destination is still unclear, mark it uncertain instead of forcing promotion
+
+### Questions in order
+
+| # | Question | Why it is asked |
+|---|---|---|
+| 1 | What is the host project? | Closes what history is being reconstructed |
+| 2 | Which sources are valid for reconstructing the project history? | Closes the defensible source set before interpretation. (e.g., versioned files, notes, conversations, changelog fragments, current canonicals) |
+| 3 | What are the major phases, versions, or turning points of the project? | Creates the first timeline skeleton. (e.g., initial mini, heavy branch, lite return, hardened line, inter-host support) |
+| 4 | For each phase, what changed, why did it matter, and what did it produce? | Separates real turning points from noise |
+| 5 | For each phase, what is its status today? | Distinguishes live, won, latent, parked, and dead material. (e.g., live line, winning decision, unresolved branch, useful reference, closed history) |
+| 6 | Which timeline units belong to `01`, `02`, `03`, `04`, `05`, `08`, `98`, or `99`? | Turns raw history into level-aware canonical candidates |
+| 7 | Which units are still too uncertain to promote safely? | Prevents fake closure |
+| 8 | Do you want timeline only, timeline plus destination map, or timeline plus canonical draft proposals? | Closes the safe output scope before writing |
+
+**Return format:**
+```text
+host project:
+mode used:
+source set:
+reconstructed timeline:
+likely canonical destinations:
+what remains uncertain:
+recommended next step:
+```
+
+</Accordion>

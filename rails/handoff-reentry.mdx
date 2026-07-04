@@ -1,0 +1,154 @@
+---
+title: "Handoff & Re-entry (09): continuity between sessions"
+sidebarTitle: "Handoff & Re-entry"
+description: "09_handoff_reentry.txt holds snapshots, delta views, and re-entry cards. It supports continuity between sessions without overriding canonical truth."
+---
+
+`09_handoff_reentry.txt` exists to solve a specific and recurring problem: sessions end, context is lost, and the next session must reconstruct where the work stood. `09` does this without pretending to be a source of project truth. It captures what happened, shows what changed, and puts you back into the specific conversation point where work stopped — all without overriding the authoritative signals held in `02`, `03`, `04`, and `08`. The key distinction is transit versus residence: material passes through `09`, it does not live there.
+
+## What 09 is
+
+`09` is the layer of short continuity between sessions in Signal Rail. It does not hold canonical truth about the project. It exists to support complete handoff and fast re-entry without losing the thread of the work. A non-canonical handoff that still needs absorption is better than truth promoted too early into the wrong container.
+
+<Note>
+09 output is non-canonical by default. 09 may summarize canonical state for continuity but may not override 02, 03, 04, or 08. Canonical updates must be routed separately.
+</Note>
+
+## Three functions
+
+<CardGroup cols={2}>
+  <Card title="Session Snapshot" icon="camera">
+    Captures what happened in the session before the chat closes — what was done, what remains open, what the next move is.
+  </Card>
+  <Card title="Delta View" icon="code-compare">
+    Shows what truly changed from the previous session in files and canonicals — not a full summary, just the delta.
+  </Card>
+  <Card title="Re-entry Card" icon="key">
+    Puts you back into the specific conversation and the real point where the work stopped.
+  </Card>
+  <Card title="Continuity Support" icon="link">
+    May summarize active freeze or current live state only as re-entry support — not as authority.
+  </Card>
+</CardGroup>
+
+## Re-entry card
+
+The re-entry card provides the minimum context needed to resume work at the exact point it paused:
+
+| Field | Purpose |
+|---|---|
+| `dominant session topic` | The main thread of the session just completed |
+| `second dominant topic, if present` | Secondary thread, if relevant |
+| `strong idea that emerged` | An idea that surfaced during the session and should not be lost |
+| `decisions discussed but not yet recorded` | Choices made in conversation that need routing to `04` |
+| `where work stopped before the pause` | The specific point of interruption |
+| `freeze / live summary` | A brief summary of current freeze and live state for orientation |
+| `next sensible move` | The first concrete action for the next session |
+
+## Delta view
+
+The delta view isolates what changed, making re-entry faster and reducing the risk of acting on stale information:
+
+| Field | What it captures |
+|---|---|
+| `files changed since the previous session` | Which canonical or support files were modified |
+| `new entries in 04 not yet absorbed` | Decision log entries made in this session that haven't been actioned elsewhere |
+| `changed states in 05` | Latent entries whose state changed (e.g. new → to review, to absorb → exited) |
+| `canonicals touched but not yet updated` | Files that need updates based on session work but haven't been written yet |
+
+## Session snapshot form
+
+The snapshot form captures what happened before the session closes.
+
+**Required fields** (must always be present):
+
+| Field | What to write |
+|---|---|
+| `date` | Date of the session |
+| `what was done` | Concrete description of work completed |
+| `what remains open` | Unresolved items from this session |
+| `next move` | First action for next session |
+
+**Optional fields** (may be omitted):
+
+| Field | What to write |
+|---|---|
+| `blocker` | Active blocker if present |
+| `files modified` | Files changed during the session |
+| `active risk` | Live risk visible at close |
+
+<Warning>
+Do not add narrative outside the form. AI-generated snapshots are unvalidated by default. If `D-xx`, `L-xx`, or other canonical IDs are cited here, they remain continuity references only and do not become new local authority.
+</Warning>
+
+## The failure condition
+
+`09` has a clearly defined failure mode. It is being used wrong when:
+
+- Decisions are being written in `09` instead of `04`
+- Live state is being updated in `09` instead of `03`
+- `09` has become the place where things live instead of the place where things transit
+
+When `09` accumulates project truth, it becomes a shadow canonical — one that lacks the authority and structural clarity of the actual files it is imitating. The result is a continuity layer that misleads re-entry instead of supporting it.
+
+## Non-canonical rule
+
+`09` may:
+- Summarize `02`, `03`, `04`, and `08` for continuity and re-entry
+- Preserve session-specific frame needed to re-enter the work cleanly
+- Cite canonical IDs as continuity references
+
+`09` may not:
+- Replace project identity (`01`)
+- Override freeze (`02`)
+- Substitute for live state (`03`)
+- Stand in for the decision record (`04`)
+- Override the technical map (`08`)
+- Mint new canonical authority from cited IDs
+
+## The ENTRIES START/END zone
+
+Session snapshots must be written inside:
+
+```
+--- ENTRIES START ---
+[TEMPLATE ONLY]
+[SESSION SNAPSHOT]
+[short label]
+- date:
+- what was done:
+- what remains open:
+- next move:
+- blocker:
+- files modified:
+- active risk:
+- links to:
+- external reference:
+--- ENTRIES END ---
+```
+
+`[TEMPLATE ONLY]` is scaffolding only. It does not count as a live handoff snapshot. Required fields must always be present. Optional fields may be omitted. Do not add narrative outside the form.
+
+## Typical errors
+
+<Warning>
+- Writing decisions in 09 instead of routing them to 04
+- Updating live state in 09 instead of 03
+- Treating 09 as a second workspace rather than a transit layer
+- Leaving old snapshots in 09 so long they begin to look authoritative
+</Warning>
+
+<CardGroup cols={2}>
+  <Card title="Master Working (03)" icon="fire" href="/rails/master-working">
+    The canonical live state — what 09 may summarize but may not override.
+  </Card>
+  <Card title="Decision Log (04)" icon="scale-balanced" href="/rails/decision-log">
+    Where decisions discussed in a session must be routed after they close.
+  </Card>
+  <Card title="Runtime Entry (00)" icon="door-open" href="/rails/runtime-entry">
+    The restart path when re-entering after a session ends.
+  </Card>
+  <Card title="Routing & Promotion" icon="route" href="/guides/routing-and-promotion">
+    How material from sessions gets routed into the right canonical file.
+  </Card>
+</CardGroup>

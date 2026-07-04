@@ -1,0 +1,185 @@
+---
+title: "Lateral files (97 / 98 / 99): findings, parking, archive"
+sidebarTitle: "Lateral Files"
+description: "97 captures live findings before routing. 98 parks what may still matter. 99 archives what is closed. None holds canonical project truth."
+---
+
+Three files in Signal Rail operate outside the canonical chain: `97_field_findings.txt`, `98_parking.txt`, and `99_archive.txt`. They are called lateral files because they sit alongside the canonicals rather than governing project truth at any level. Each one handles material at a different stage of its life — findings being filtered before routing, useful paths suspended out of the present flow, and closed history preserved as trace. None of them replaces a canonical. All of them protect the canonicals from accumulating material that does not yet belong there, or that no longer belongs anywhere active.
+
+---
+
+## 97 Field Findings (`97_field_findings.txt`)
+
+`97` keeps useful findings that emerge during real work before they are lost or promoted too early. It is a lateral, non-canonical support file. It exists so that findings can be kept readable while they are still being observed, compared, filtered, or discarded — without forcing them into a container they are not ready for.
+
+### What 97 is and is not
+
+<CardGroup cols={2}>
+  <Card title="What 97 is" icon="check">
+    A lateral finding layer: useful capture before routing. Keeps findings readable while still being evaluated.
+  </Card>
+  <Card title="What 97 is not" icon="xmark">
+    Not project truth. Not a second working surface. Not a substitute for 05. Not a place where things live.
+  </Card>
+</CardGroup>
+
+### Categories
+
+`97` uses four named categories:
+
+| Category | When to use it |
+|---|---|
+| **BUG** | A real problem has already emerged in a concrete and observable way |
+| **REFINEMENT** | A small improvement is already concrete enough to be discussed as a local move |
+| **SIGNAL** | Something matters but is not yet closed enough to become a BUG or REFINEMENT |
+| **SEED** | A promising idea should be preserved but is still too early, too broad, or too under-formed to promote |
+
+### Entry form
+
+```
+[CATEGORY]
+[short label]
+- where:
+- what:
+- why it matters:
+- note:
+```
+
+**Category guidance by example:**
+
+| Category | Where | What | Why it matters | Note |
+|---|---|---|---|---|
+| BUG | A specific point where behavior already breaks in practice | A concrete problem that can be described without hypothesis | The issue is already real — keeping it visible prevents loss or false minimization | Use only when the problem is already observable |
+| REFINEMENT | A local point, wording, step, or behavior | A concrete improvement clear enough to discuss without turning into redesign | Small local refinements remove friction with low structural cost | Use when the move is already shapeable as a local improvement |
+| SIGNAL | A point where something feels risky, ambiguous, or unstable | Something relevant that is not yet concrete enough to classify as BUG or REFINEMENT | Preserving the signal helps later verification without forcing premature routing | Use when the finding matters but is not yet closed enough |
+| SEED | A local pass reveals a potentially strong idea still too early to route | Something useful but still too broad, young, or under-formed to promote | Preserving the seed avoids losing leverage without forcing premature project weight | Use when the idea is worth keeping but not yet ready |
+
+### Failure condition for 97
+
+`97` is being used wrong when:
+
+- It starts holding project truth instead of findings
+- It starts replacing a canonical or support container
+- Findings stay here after they are already clearly routable
+- Entries become mini design docs, conversation logs, or brainstorming blocks
+- It becomes the place where things live instead of where findings are first kept readable
+
+---
+
+## 98 Parking (`98_parking.txt`)
+
+`98` holds what may still matter later, but does not matter now. It removes weight from the present without deleting paths that may still become useful. The distinction from `99` is important: parking preserves paths that could reopen. Archive closes them.
+
+### What 98 is for
+
+Put here things you do not want to lose, but that should not stay in the project's current live work. Suspended plans, partial specs, good ideas that are out of time, paths not to erase but not alive.
+
+### What goes here vs what does not
+
+| What | Goes to 98? | Why |
+|---|---|---|
+| Suspended plans | ✅ Yes | May become useful again but are not helping now |
+| Partial specs | ✅ Yes | Not alive enough for current work; not worth losing |
+| Good ideas out of time | ✅ Yes | Not the right moment, even if they have value |
+| Paths not to erase but not alive | ✅ Yes | Not closed, not active |
+| Things still alive and in play | ❌ No → `05` | Still matter now |
+| Things already in current work | ❌ No → `03` | Already part of the live state |
+| Decisions already taken | ❌ No → `04` | Already real choices |
+| Things that no longer matter at all | ❌ No → `99` | Live role is closed |
+
+### Entry template
+
+Local entries in `98` use **only `P-xx` IDs**.
+
+```
+- id: P-xx
+- Title:
+- Why It Is Here:
+- links to:
+- external reference:
+- Next Step to Reactivate It:
+```
+
+<Warning>
+Every parking entry must have a `Next Step to Reactivate It`. An entry without a reactivation condition is a path that can never be found again.
+</Warning>
+
+### Typical errors for 98
+
+<Warning>
+- Using 98 as an elegant cemetery (things that are really dead belong in 99)
+- Parking things that are still alive just to avoid deciding where they belong
+- Leaving entries without a reactivation condition
+- Using 98 to lighten the present instead of understanding where something truly belongs
+</Warning>
+
+---
+
+## 99 Archive (`99_archive.txt`)
+
+`99` holds what is no longer alive. It preserves memory without letting finished things weigh on the present. Where `98` is suspension, `99` is closure.
+
+### What 99 is for
+
+Put here things that are closed, superseded, duplicated, or dead — if you want to keep them as trace. The archive does not guide the present. It records that something existed.
+
+### What goes here vs what does not
+
+| What | Goes to 99? | Why |
+|---|---|---|
+| Superseded versions | ✅ Yes | No longer guide the project, but may matter as trace |
+| Duplicates | ✅ Yes | Should not weigh twice on the present |
+| Closed snapshots | ✅ Yes | Describe a past state, not live work |
+| Dead ideas | ✅ Yes | No longer in play, worth keeping as trace |
+| Things no longer with a live role | ✅ Yes | Should not guide the present |
+| Things still useful but out of time | ❌ No → `98` | May return; archive is too final |
+| Things still alive and open | ❌ No → `05` | Still matter now |
+| Things already in current work | ❌ No → `03` | Part of the live state |
+| Still-valid active decisions | ❌ No → `04` | Not dead history |
+
+### Entry template
+
+Local entries in `99` use **only `A-xx` IDs**.
+
+```
+- id: A-xx
+- Title:
+- Why It Is Here:
+- Origin:
+- links to:
+- external reference:
+```
+
+### Typical errors for 99
+
+<Warning>
+- Archiving too early just for visual cleanliness
+- Putting ambiguous-but-alive things here
+- Using archive as a substitute for parking, latent, or decision
+- Confusing historical memory with work that is still active
+</Warning>
+
+---
+
+## The three lateral files at a glance
+
+| File | State of material | ID family | Key question |
+|---|---|---|---|
+| `97_field_findings.txt` | Being observed, filtered, or discarded | None (category-based) | Is this finding still being evaluated? |
+| `98_parking.txt` | Useful but not active now | `P-xx` | Could this matter again — and if so, how? |
+| `99_archive.txt` | Closed, no longer alive | `A-xx` | Is this truly finished with no live role? |
+
+<CardGroup cols={2}>
+  <Card title="Latent Ideas (05)" icon="seedling" href="/rails/latent-ideas">
+    For material that is still alive and unresolved — not ready for 98 or 99 yet.
+  </Card>
+  <Card title="Routing & Promotion" icon="route" href="/guides/routing-and-promotion">
+    How to decide whether material belongs in 97, 98, 99, or a canonical.
+  </Card>
+  <Card title="ID Families Reference" icon="id-card" href="/reference/id-families">
+    Full reference for P-xx and A-xx ID families used in lateral files.
+  </Card>
+  <Card title="Overview" icon="grid-2" href="/rails/overview">
+    All thirteen rails and how lateral files fit into the full system.
+  </Card>
+</CardGroup>

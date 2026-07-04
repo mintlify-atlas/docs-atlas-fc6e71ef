@@ -1,0 +1,120 @@
+---
+title: "Signal Rail operating modes: permissions and boundaries"
+sidebarTitle: "Modes"
+description: "Signal Rail's six operating modes, what each permits and prohibits, how mode boundaries protect canonical files, and how to switch safely."
+---
+
+A Signal Rail mode is not a label or a conversational state — it is a **permission boundary**. Entering a mode changes what is allowed. Leaving it closes those permissions. The mode system exists because different tasks carry fundamentally different risk levels: reading a file is not the same as writing to it, and writing to `03_master_working.txt` is not the same as touching `02_protocol_freeze.txt`. Modes make those distinctions explicit and enforceable.
+
+## What modes govern
+
+Modes control:
+
+- **Which files may be touched** during the current task
+- **What operations are permitted** (read, propose, write, structural edit)
+- **When a stop-and-ask is required** before the task continues
+
+Only one active mode is allowed at a time. A task that requires a different permission set requires an explicit mode change — not a silent expansion of the current mode.
+
+## The six modes
+
+### 1. Orientation (default startup)
+
+**Orientation** is the default state at the start of every session. It is read-only. The agent may read files, close the minimum frame, and ask clarifying questions. Nothing in orientation permits writing to any canonical file.
+
+> Reading does not authorise action. Understanding does not authorise writing.
+
+Orientation is where minimum read happens: `00 → 06 → 01 → 03`, followed by any conditional reads the task requires. Do not begin substantive work until orientation read is complete and the mode is explicitly advanced.
+
+### 2. Reference
+
+**Reference** mode is for looking up canonical content without changing it. The agent may read, cite, and return content from canonical files. No write, no promotion, no structural change.
+
+Use reference mode when the operator needs to inspect a specific entry, verify a decision ID, confirm a freeze point, or check the surface map — without triggering any downstream write.
+
+### 3. Review
+
+**Review** mode is for examining material for accuracy, completeness, or routing before any action is taken. The agent may read and analyse material, flag conflicts, and return findings, but may not write to canonicals.
+
+Review is the correct mode before a rewrite pass: close what the material is, what it conflicts with, and what its correct destination would be — before entering a mode that allows writing.
+
+### 4. Ingest
+
+**Ingest** mode is for processing source material: reading, separating, classifying, and proposing destinations for incoming content. The agent may extract and classify units from source material but may not promote to canonicals without explicit human confirmation.
+
+Ingest is the correct mode when the operator brings raw material (notes, transcripts, drafts, scattered inputs) that needs to be separated into units and routed before any canonical update is proposed.
+
+### 5. Work
+
+**Work** mode is for active writing to canonical files after the working frame is closed. In work mode, the agent may propose and (with confirmation) apply canonical updates to `03_master_working.txt`, `04_decision_log.txt`, `05_latent_ideas.txt`, `08_surface_map.txt`, `09_handoff_reentry.txt`, `97_field_findings.txt`, `98_parking.txt`, and `99_archive.txt`.
+
+Work mode does **not** permit touching structural files (`01_orientation.txt`, `02_protocol_freeze.txt`, `06_ai_to_ai.txt`). Those require structure mode.
+
+### 6. Structure
+
+**Structure** mode is for touching the structural files: `01_orientation.txt`, `02_protocol_freeze.txt`, or `06_ai_to_ai.txt`. Entry into structure mode requires an explicit decision — it cannot be entered silently from work, ingest, or reference.
+
+Before crossing into structure mode from any other mode, the agent must reread `06_ai_to_ai.txt`. This ensures the lateral kernel is current before any structural file is modified.
+
+<Warning>
+  Do not touch `01`, `02`, or `06` from work, ingest, or reference mode without an explicit structure mode entry and a fresh read of `06_ai_to_ai.txt`. Structural changes affect project identity, freeze constants, and protocol behaviour — they require the highest permission level.
+</Warning>
+
+## Mode reference table
+
+| Mode | Allowed | Not Allowed | When to Use |
+|---|---|---|---|
+| **orientation** | Read files; close minimum frame; ask questions | Write to any file; promote content; expand scope | Default startup; every session opens here |
+| **reference** | Read and cite canonical content | Write; promote; structural touch | Looking up a decision, ID, or freeze point |
+| **review** | Read and analyse; flag conflicts; return findings | Write to canonicals; promote; structural touch | Before a rewrite or routing pass |
+| **ingest** | Extract and classify source material; propose destinations | Promote without confirmation; structural touch | Processing raw or messy incoming material |
+| **work** | Write to non-structural canonicals (03, 04, 05, 08, 09, 97, 98, 99) with confirmation | Touch 01, 02, or 06; self-authorise scope expansion | Active canonical updates after frame is closed |
+| **structure** | Touch 01, 02, or 06 after explicit entry and 06 reread | Enter without explicit decision; skip 06 reread | Editing identity, freeze constants, or the kernel |
+
+## Mode boundary rules
+
+**One mode at a time.** Do not perform actions belonging to another mode while a different mode is active. If the task scope shifts to require different permissions, the mode must change explicitly before the new actions begin.
+
+**No write from orientation.** A session that has not advanced past orientation mode may not write to canonical files, even if the content looks ready.
+
+**No structural touch from non-structure modes.** Files `01`, `02`, and `06` may only be touched in structure mode. Arriving at a structural file during a work or ingest pass does not automatically authorise structure-level changes.
+
+**Reread `06` before structure mode.** Before crossing into structure mode from any other mode, the agent must reread `06_ai_to_ai.txt`. This is not optional.
+
+**Mode reopening triggers Recovery.** If a closed gate reopens during a task — for example, if authority becomes unclear mid-write, or if the target file changes class — stop treating execution as valid and re-enter through the Recovery path.
+
+## Cross-mode prohibitions
+
+The following are never permitted, regardless of conversational momentum or apparent clarity:
+
+- Writing from orientation
+- Touching `01`, `02`, or `06` from work, ingest, or reference without explicit structure entry
+- Treating a mode as implicitly expanded because the task "needs" more permissions
+- Self-authorising scope expansion silently
+- Inferring authority from cleanliness, recency, or confidence
+
+## When to explicitly close a new mode
+
+You need an explicit mode declaration when:
+
+- The current task requires different permissions than the active mode allows
+- The target file changes class (for example, moving from a reference pass to a proposed write)
+- The task requires touching a structural file from a non-structure mode
+- A second stop-and-ask in the same task has occurred (this also triggers a `06` reread proposal)
+
+## Recovery when mode becomes unclear
+
+If the active mode is unclear, or if the mode boundary has been crossed without explicit authorisation:
+
+1. **Stop.** Do not continue executing the task under uncertain permissions.
+2. **Declare blocked.** Return `state: blocked` with the mode uncertainty as the stated reason.
+3. **Ask for mode closure.** The operator must explicitly state the correct mode before the task resumes.
+4. **Re-enter through Recovery** if the session state cannot be recovered from the current position:
+   - Return to `00_runtime_entry.txt` section 3
+   - Then `06_ai_to_ai.txt` — Identity State
+   - Then `01_orientation.txt`
+   - Then `03_master_working.txt`
+
+<Note>
+  The Recovery path is not a failure state — it is the correct response to any meaningful ambiguity about mode, authority, scope, or level. Signal Rail is designed to fail closed: when in doubt, stop and ask rather than continuing under a guess.
+</Note>

@@ -1,0 +1,171 @@
+---
+title: "Core concepts: rails, levels, authority, and the write gate"
+sidebarTitle: "Core Concepts"
+description: "Typed rails, a strict level hierarchy, canonical authority, the write gate, and promotion rules that prevent document drift in Signal Rail."
+---
+
+Signal Rail is built on a small number of structural ideas that work together. Understanding them prevents the most common operating mistakes: routing material to the wrong level, promoting content before authority is clear, and confusing the tool surface with the project being governed. This page explains those ideas from the ground up.
+
+## Rails vs files
+
+In Signal Rail, a **rail** is not just a file — it is a typed destination with a specific role. Each file is a rail with strict rules about what kind of material belongs there, at what level of stability, and under what conditions it may be written to.
+
+The distinction matters because routing by file proximity or apparent importance produces document drift. Signal Rail routes by the nature of the material: what kind of thing it is, how stable it is, and who has authority over it. Two pieces of content in the same conversation can belong in completely different rails.
+
+Nothing is placed in a rail because it sounds strong, because the file is nearby, or because writing momentum makes it convenient. Material is placed in the rail that governs its level.
+
+## The level hierarchy
+
+The canonical rails form a strict hierarchy from project identity down to continuity support:
+
+| Level | File | Governs |
+|---|---|---|
+| Identity | `01_orientation.txt` | Project identity, perimeter, and reading frame |
+| Freeze | `02_protocol_freeze.txt` | Hard-to-reopen identity constants (F-xx) |
+| Live state | `03_master_working.txt` | Current work, active blocker, and next move |
+| Decisions | `04_decision_log.txt` | Already-won choices already in effect (D-xx) |
+| Latent | `05_latent_ideas.txt` | Live but unresolved material still needing placement (L-xx) |
+| Surface map | `08_surface_map.txt` | Technical topology, entrypoints, and sensitive surfaces |
+| Continuity | `09_handoff_reentry.txt` | Re-entry support between sessions (non-canonical) |
+
+Each canonical file governs **its own level only**. `01_orientation.txt` helps close project meaning, but it does not override `02`, `03`, or `04`. `02` has authority on identity-level constants. `03` has authority on current intended work state. `04` has authority on taken decisions. When two files conflict, the file that governs the **touched level** decides the reading boundary.
+
+## Authority
+
+Authority in Signal Rail is not inferred from freshness, cleanliness, completeness, or elegance. A newer file is not automatically more authoritative. A cleaner file is not automatically more true. A well-written paragraph is not automatically a decision.
+
+The authority rules are:
+
+- Each canonical surface governs its own level only.
+- Lateral surfaces (`09`, `97`, `98`, `99`) do not override canonicals.
+- `09_handoff_reentry.txt` supports continuity and does not override canonical truth.
+- In conflict, the file that governs the **touched level** decides.
+- Do not infer authority from format, filename, folder, or conversational momentum.
+
+## Canonical vs lateral surfaces
+
+Signal Rail separates its files into two classes:
+
+**Canonical surfaces** carry project truth. They define identity, freeze, live state, decisions, latent material, technical topology, and continuity. Writing to a canonical surface requires authority to be closed before the write happens.
+
+**Lateral surfaces** support the work without overriding canonicals. They include:
+
+| File | Role |
+|---|---|
+| `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` | Instance marker only; does not identify host project or authority |
+| `97_field_findings.txt` | Temporary capture during an active pass, before routing or discard |
+| `98_parking.txt` | Useful but not active material (P-xx) |
+| `99_archive.txt` | Historical, duplicate, or closed material (A-xx) |
+
+Lateral surfaces do not carry project truth by default. Material placed in a lateral file has not been promoted. It is held safely until the operator decides where it belongs.
+
+## Baseline, instance, host project
+
+Three distinct things must not be confused in Signal Rail:
+
+| Surface | Meaning |
+|---|---|
+| **Clean baseline kit** | The repository — the reusable Signal Rail source. Not a project. |
+| **Deployed instance** | A copy of Signal Rail used inside or beside a real project. |
+| **Host project** | The actual project being governed. Lives outside Signal Rail. |
+| **Workstation** | Optional local interface for reading, staging, previewing, and writing a live instance. |
+
+A deployed instance is not the host project. The `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` marker identifies the folder as a tool surface — it does not identify the project being governed. The agent must still close the host project, working object, mode, source scope, and authority before substantive action.
+
+<Note>
+  The canonical files in a deployed instance describe the **host project**, not Signal Rail. `01_orientation.txt` should contain the host project's identity — not an explanation of how Signal Rail works.
+</Note>
+
+## The write gate
+
+Before writing to any canonical file, all seven conditions must be true:
+
+<Note>
+  **Write gate conditions — all must be satisfied before writing:**
+
+  1. **Destination clear** — the target rail is unambiguously identified.
+  2. **Level clear** — the material's level matches the rail's authority.
+  3. **Authority clear** — the operator has confirmed who can authorize this write.
+  4. **Mode allows writing** — the active mode permits canonical writing (orientation is read-only).
+  5. **Source and target were read in-session** — both the source material and the target file have been read in the current session before writing.
+  6. **Append-driven files have a valid entries contract** — for `04`, `05`, `08`, `09`, `97`, `98`, and `99`, exactly one `--- ENTRIES START ---` and one `--- ENTRIES END ---` are present, in correct order, with the local template preserved as scaffold.
+  7. **Template scaffolding preserved** — `[TEMPLATE ONLY]` blocks are not treated as live entries, and the file's structural scaffold is left intact.
+
+  If any condition is not met, stop and ask before writing.
+</Note>
+
+Reading does not authorize writing. Understanding does not authorize promotion. A task arriving before minimum read is complete does not authorize skipping minimum read.
+
+## Append-driven files
+
+Files `04`, `05`, `08`, `09`, `97`, `98`, and `99` are **append-driven**. They use a single entries zone per file, and new live entries must be inserted only inside that zone:
+
+```text
+--- ENTRIES START ---
+...new entries go here...
+--- ENTRIES END ---
+```
+
+The marker contract must be valid:
+
+- Exactly one `--- ENTRIES START ---` marker.
+- Exactly one `--- ENTRIES END ---` marker.
+- Markers in the correct order.
+- Local template preserved as scaffold inside the zone.
+- `[TEMPLATE ONLY]` blocks are scaffolding only — they carry no canonical authority and do not count as live entries.
+
+If the marker contract is missing, duplicated, malformed, or ambiguous, stop before writing.
+
+## ID families
+
+Each append-driven canonical that tracks entries uses its own ID family. IDs stay local to their container and do not migrate between files:
+
+| Rail | ID family | Example |
+|---|---|---|
+| `02_protocol_freeze.txt` | `F-xx` | `F-01`, `F-02` |
+| `04_decision_log.txt` | `D-xx` | `D-01`, `D-02` |
+| `05_latent_ideas.txt` | `L-xx` | `L-01`, `L-02` |
+| `98_parking.txt` | `P-xx` | `P-01`, `P-02` |
+| `99_archive.txt` | `A-xx` | `A-01`, `A-02` |
+
+Cross-file references stay as references. They do not become new local IDs in the target file.
+
+## Promotion rules
+
+**Promotion** means moving material from a lower-stability surface (like `05_latent_ideas.txt` or `97_field_findings.txt`) into a higher-authority canonical (like `03_master_working.txt` or `04_decision_log.txt`). Promotion changes the material's authority level and its governance status.
+
+Promotion is allowed only when destination, level, and authority are all closed. The safe hold for material that is not ready is `05_latent_ideas.txt`.
+
+The routing order is always:
+
+1. **Close what the unit is** — classify before placing.
+2. **Close how stable it is** — stability determines the level.
+3. **Close where it belongs** — destination follows from level and authority.
+
+<Warning>
+  **Non-promotion rules — none of these conditions authorize promotion:**
+
+  - **Clarity is not authority.** A clear statement does not belong in a canonical file just because it is clear.
+  - **Strength is not promotion.** A strong or compelling idea does not belong in `03` or `04` just because it sounds decided.
+  - **A summary is not a source.** A clean rewrite of scattered material does not become more authoritative than its source.
+  - **A strong sentence is not a decision.** `04_decision_log.txt` records only choices that have already beaten a real alternative and are already in effect.
+  - **An elegant structure is not freeze.** `02_protocol_freeze.txt` holds identity constants — not well-written strategy still under test.
+  - **A plausible line is not live work.** `03_master_working.txt` holds what is already guiding current work, not proposals or next moves.
+</Warning>
+
+If the destination is not closed enough, do not force promotion. The correct move is to hold the material in `05_latent_ideas.txt` with a note about its strongest plausible level.
+
+<CardGroup cols={2}>
+  <Card title="Rails overview" icon="map" href="/rails/overview">
+    Every rail explained with its exact role, what belongs, and what does not.
+  </Card>
+  <Card title="Routing and promotion" icon="route" href="/guides/routing-and-promotion">
+    The full routing model: nature, stability, authority, and destination closure.
+  </Card>
+  <Card title="File map" icon="folder-tree" href="/reference/file-map">
+    Quick reference for every file name, ID family, and canonical status.
+  </Card>
+  <Card title="AI agent operation" icon="robot" href="/guides/ai-agent-operation">
+    How an AI agent applies write gate, promotion rules, and authority checks in practice.
+  </Card>
+</CardGroup>

@@ -1,0 +1,101 @@
+{
+  "projectType": "general",
+  "projectName": "Signal Rail",
+  "projectDescription": "A plain-text document governance system that organises project material into typed rails — current state, decisions, ideas, freeze, surface map, handoff, and archive — so AI-assisted and personal projects stay readable and recoverable through change and interruption.",
+  "theme": "willow",
+  "primaryColor": "#7dc6ff",
+  "lightColor": "#e8f4ff",
+  "darkColor": "#0e131a",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "core-concepts"
+            ]
+          },
+          {
+            "group": "The Rails",
+            "pages": [
+              "rails/overview",
+              "rails/runtime-entry",
+              "rails/orientation",
+              "rails/protocol-freeze",
+              "rails/master-working",
+              "rails/decision-log",
+              "rails/latent-ideas",
+              "rails/surface-map",
+              "rails/handoff-reentry",
+              "rails/lateral-files"
+            ]
+          },
+          {
+            "group": "Operating Guides",
+            "pages": [
+              "guides/ai-agent-operation",
+              "guides/manual-editing",
+              "guides/guided-prompts",
+              "guides/routing-and-promotion"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/file-map",
+              "reference/id-families",
+              "reference/modes",
+              "reference/workstation"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Bootstrap",
+        "groups": [
+          {
+            "group": "Setup",
+            "pages": [
+              "bootstrap/overview",
+              "bootstrap/windows-installer",
+              "bootstrap/manual-copy"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Typed document rails that separate current state, decisions, ideas, freeze, and archive",
+    "AI lateral kernel (06_ai_to_ai.txt) that governs agent behaviour inside a Signal Rail instance",
+    "Guided prompt flows for safe session starts, idea intake, source rebuilds, and re-entry",
+    "Append-driven entry zones with strict promotion rules to prevent level and authority blur",
+    "Windows bootstrap scripts (BAT + PowerShell) to instantiate a new governed instance in any folder",
+    "Offline HTML workstation for reading, staging, and writing back to canonical .txt files",
+    "Handoff and re-entry layer (09) for continuity between sessions without overriding canonical truth",
+    "Localization kit support for non-English deployments without modifying the baseline"
+  ],
+  "publicApiSurface": [
+    "00_runtime_entry.txt — runtime entry gate and system map",
+    "01_orientation.txt — project identity and reading frame",
+    "02_protocol_freeze.txt — hard-to-reopen identity constants (F-xx IDs)",
+    "03_master_working.txt — current live state, blockers, and next move",
+    "04_decision_log.txt — already-won decisions in effect (D-xx IDs)",
+    "05_latent_ideas.txt — live unresolved material (L-xx IDs)",
+    "06_ai_to_ai.txt — lateral kernel governing AI protocol behaviour",
+    "07_guided_prompts_test.txt — guided question flows for safer operating situations",
+    "08_surface_map.txt — technical topology, entrypoints, sensitive surfaces, and minimal runbook",
+    "09_handoff_reentry.txt — non-canonical continuity and session re-entry layer",
+    "97_field_findings.txt — lateral finding capture (BUG / REFINEMENT / SIGNAL / SEED)",
+    "98_parking.txt — useful-but-inactive material (P-xx IDs)",
+    "99_archive.txt — closed historical material (A-xx IDs)",
+    "AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt — deployed instance marker",
+    "init_signal_rail.bat — Windows bootstrap launcher",
+    "init_signal_rail.ps1 — PowerShell instance bootstrap script",
+    "signal_rail_workstation_final.html — offline HTML workstation UI"
+  ]
+}
