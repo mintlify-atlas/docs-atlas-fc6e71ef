@@ -36,7 +36,7 @@ This file does not explain what the project is. It explains where the project re
 
 ## Template sections
 
-`08` uses six categories of entries, each with its own template and an example drawn from the source file.
+`08` uses seven categories of entries, each with its own template and an example drawn from the source file.
 
 ---
 
@@ -44,7 +44,7 @@ This file does not explain what the project is. It explains where the project re
 
 Records where the project really lives. Not for listing everything — for helping someone recognise which places matter when reading, opening, or touching the project.
 
-```
+```text
 - place name:
 - path:
 - what is really there:
@@ -53,7 +53,7 @@ Records where the project really lives. Not for listing everything — for helpi
 ```
 
 **Example:**
-```
+```text
 - place name: main repo
 - path: C:\...\signal-rail
 - what is really there: the main kit and the living source of the project
@@ -67,7 +67,7 @@ Records where the project really lives. Not for listing everything — for helpi
 
 Records where someone truly enters the project. Not convenient points, not nearby points — the points from which a real reading, start, or first sensible touch actually begins.
 
-```
+```text
 - entrypoint:
 - what you find there first:
 - what that point is really for:
@@ -75,7 +75,7 @@ Records where someone truly enters the project. Not convenient points, not nearb
 ```
 
 **Example:**
-```
+```text
 - entrypoint: 00_runtime_entry.txt
 - what you find there first: the runtime entry manual of the system
 - what that point is really for: closing valid entry before using the kernel and canonicals
@@ -88,7 +88,7 @@ Records where someone truly enters the project. Not convenient points, not nearb
 
 Records points that attract attention but can easily send you the wrong way. Naming false entrypoints explicitly protects against wrong entry even when the correct entrypoint is written.
 
-```
+```text
 - false entrypoint:
 - why it looks like a good idea:
 - why it sends you the wrong way:
@@ -96,7 +96,7 @@ Records points that attract attention but can easily send you the wrong way. Nam
 ```
 
 **Example:**
-```
+```text
 - false entrypoint: old backup folder
 - why it looks like a good idea: it contains familiar files and looks already prepared
 - why it sends you the wrong way: you risk writing on a non-active surface
@@ -109,7 +109,7 @@ Records points that attract attention but can easily send you the wrong way. Nam
 
 Records points where a small change can have a large impact. Not for writing what makes you anxious — for making visible where the impact class changes if something is touched.
 
-```
+```text
 - sensitive point:
 - what changes if you touch it:
 - why the impact is bigger than it seems:
@@ -117,7 +117,7 @@ Records points where a small change can have a large impact. Not for writing wha
 ```
 
 **Example:**
-```
+```text
 - sensitive point: 06_ai_to_ai.txt
 - what changes if you touch it: you may change writing and migration behavior across the whole system
 - why the impact is bigger than it seems: it governs the classification kernel
@@ -130,14 +130,14 @@ Records points where a small change can have a large impact. Not for writing wha
 
 Records only the minimum required for startup, basic verification, and a first safe touch. Not a full setup or tutorial.
 
-```
+```text
 - what you want to achieve:
 - minimum safe move:
 - what you should see if it worked:
 ```
 
 **Example:**
-```
+```text
 - what you want to achieve: open the system safely
 - minimum safe move: read 00_runtime_entry.txt and then 06_ai_to_ai.txt
 - what you should see if it worked: the project frame and the right canonical entrypoints become clear
@@ -149,7 +149,7 @@ Records only the minimum required for startup, basic verification, and a first s
 
 Records only what truly changes the behavior of the project if it is missing or different. Not a list of everything around it.
 
-```
+```text
 - name:
 - where it really matters:
 - what happens if it is missing or changes:
@@ -157,7 +157,7 @@ Records only what truly changes the behavior of the project if it is missing or 
 ```
 
 **Example:**
-```
+```text
 - name: canonical files 01–05 / 08 / 98 / 99
 - where it really matters: project reading, classification, and writing
 - what happens if it is missing or changes: the system or the AI reads the project incompletely
@@ -170,7 +170,7 @@ Records only what truly changes the behavior of the project if it is missing or 
 
 Records only external integrations that truly change the behavior of the project.
 
-```
+```text
 - integration:
 - where it really matters:
 - why it changes project behavior:
@@ -178,7 +178,7 @@ Records only external integrations that truly change the behavior of the project
 ```
 
 **Example:**
-```
+```text
 - integration: separate deployed instance
 - where it really matters: private operational documentation
 - why it changes project behavior: it separates the active surface from the main kit
@@ -201,7 +201,7 @@ Update `08` when:
 
 Technical map updates use the append zone:
 
-```
+```text
 --- ENTRIES START ---
 [TEMPLATE ONLY]
 [TECHNICAL MAP UPDATE]

@@ -36,13 +36,15 @@ Three files in Signal Rail operate outside the canonical chain: `97_field_findin
 
 ### Entry form
 
-```
+```text
 [CATEGORY]
 [short label]
 - where:
 - what:
 - why it matters:
 - note:
+- links to:
+- external reference:
 ```
 
 **Category guidance by example:**
@@ -53,6 +55,27 @@ Three files in Signal Rail operate outside the canonical chain: `97_field_findin
 | REFINEMENT | A local point, wording, step, or behavior | A concrete improvement clear enough to discuss without turning into redesign | Small local refinements remove friction with low structural cost | Use when the move is already shapeable as a local improvement |
 | SIGNAL | A point where something feels risky, ambiguous, or unstable | Something relevant that is not yet concrete enough to classify as BUG or REFINEMENT | Preserving the signal helps later verification without forcing premature routing | Use when the finding matters but is not yet closed enough |
 | SEED | A local pass reveals a potentially strong idea still too early to route | Something useful but still too broad, young, or under-formed to promote | Preserving the seed avoids losing leverage without forcing premature project weight | Use when the idea is worth keeping but not yet ready |
+
+### The ENTRIES START/END zone
+
+All findings must be written inside:
+
+```text
+--- ENTRIES START ---
+[TEMPLATE ONLY]
+
+[CATEGORY]
+[short label]
+- where:
+- what:
+- why it matters:
+- note:
+- links to:
+- external reference:
+--- ENTRIES END ---
+```
+
+`[TEMPLATE ONLY]` in the entries zone is scaffolding only. It does not count as a live finding. The marker contract must be valid: exactly one start marker, exactly one end marker, correct order.
 
 ### Failure condition for 97
 
@@ -91,7 +114,7 @@ Put here things you do not want to lose, but that should not stay in the project
 
 Local entries in `98` use **only `P-xx` IDs**.
 
-```
+```text
 - id: P-xx
 - Title:
 - Why It Is Here:
@@ -103,6 +126,26 @@ Local entries in `98` use **only `P-xx` IDs**.
 <Warning>
 Every parking entry must have a `Next Step to Reactivate It`. An entry without a reactivation condition is a path that can never be found again.
 </Warning>
+
+### The ENTRIES START/END zone for 98
+
+All parking entries must be written inside:
+
+```text
+--- ENTRIES START ---
+[TEMPLATE ONLY]
+[PARKING]
+[short label]
+- id: P-xx
+- Title:
+- Why It Is Here:
+- links to:
+- external reference:
+- Next Step to Reactivate It:
+--- ENTRIES END ---
+```
+
+`[TEMPLATE ONLY]` in the entries zone is scaffolding only. It does not count as a live parking entry. The marker contract must be valid: exactly one start marker, exactly one end marker, correct order.
 
 ### Typical errors for 98
 
@@ -141,7 +184,7 @@ Put here things that are closed, superseded, duplicated, or dead — if you want
 
 Local entries in `99` use **only `A-xx` IDs**.
 
-```
+```text
 - id: A-xx
 - Title:
 - Why It Is Here:
@@ -149,6 +192,26 @@ Local entries in `99` use **only `A-xx` IDs**.
 - links to:
 - external reference:
 ```
+
+### The ENTRIES START/END zone for 99
+
+All archive entries must be written inside:
+
+```text
+--- ENTRIES START ---
+[TEMPLATE ONLY]
+[ARCHIVE]
+[short label]
+- id: A-xx
+- Title:
+- Why It Is Here:
+- Origin:
+- links to:
+- external reference:
+--- ENTRIES END ---
+```
+
+`[TEMPLATE ONLY]` in the entries zone is scaffolding only. It does not count as a live archive entry. The marker contract must be valid: exactly one start marker, exactly one end marker, correct order.
 
 ### Typical errors for 99
 

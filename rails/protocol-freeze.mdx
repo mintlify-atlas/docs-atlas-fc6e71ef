@@ -49,7 +49,7 @@ Maximum **5 active freeze entries**. This limit prevents two mistakes: turning t
 
 Local entries in `02` use **only `F-xx` IDs** (F-01 through F-05). If you reference `D-xx`, `L-xx`, or other external IDs, they remain references in `links to`; they do not become new local IDs here.
 
-```
+```text
 - id: F-01
 - principle:
 - why it is frozen:
@@ -66,18 +66,6 @@ Local entries in `02` use **only `F-xx` IDs** (F-01 through F-05). If you refere
 | `why it is frozen` | What breaks if you lose it |
 | `links to` | A strong source, not noise |
 | `reopening trigger` | Narrow: not "if we change our mind" but "if real cases show…" |
-
-## The ENTRIES START/END zone
-
-Entries in `02` must be written inside the entries zone:
-
-```
---- ENTRIES START ---
-...
---- ENTRIES END ---
-```
-
-The marker contract must remain valid: exactly one start marker, exactly one end marker, correct order, local template preserved as scaffold. `[TEMPLATE ONLY]` blocks are scaffolding only and do not count as live freeze entries.
 
 ## How to tell whether something deserves freeze
 

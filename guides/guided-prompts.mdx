@@ -16,6 +16,13 @@ All seven guided prompt flows share the same foundation. Before running any of t
 
 Additional rules that apply across every flow:
 
+- `AI_TO_AI__DEPLOYED_INSTANCE_SIGNAL_RAIL.txt` does not identify the host project or the current target by default.
+- Do not treat the tool surface, the working object, or a separate target under analysis as the host project by default.
+- Do not infer the host project from deployed instance file presence or folder name alone.
+- If a canonical file contains an **AI QUICK NOTE** and an **AI SECTION**, use the AI SECTION as the operational rule source for that file. Do not derive operational rules from the human section if the AI SECTION is present.
+- When structuring canonical content, keep `links to` for canonical or internal references and use `external reference` for useful references outside the canonical set.
+- For append-driven canonicals (`04`, `05`, `08`, `09`, `97`, `98`, `99`), insert new entries only inside the marker zone between `--- ENTRIES START ---` and `--- ENTRIES END ---`.
+- `--- ENTRIES START ---` and `--- ENTRIES END ---` are structural tokens and must remain in English in every localization.
 - Ask **one question at a time**. Do not dump all questions at once.
 - Keep each question short and allow free-form answers.
 - Reduce ambiguity before asking. Ask for the unresolved hinge, not a full re-brief.
@@ -26,6 +33,11 @@ Additional rules that apply across every flow:
 - Preserve source meaning and source language until recording requires change.
 - Do not turn spoken input into canonical text too early.
 - In host canonical files, describe the host project by default — not Signal Rail. Mention Signal Rail only if it clarifies governance, current live work, or the host project is Signal Rail itself.
+- If a statement exists only because of tool adoption, workflow change, or document-management setup, it does not belong in `01_orientation.txt` by default.
+- Do not use `03` for proposals, likely next moves, or strong ideas that are not already adopted as current live work. If it is not already guiding current live work, do not place it in `03`.
+- If content maps where the project really lives, where to enter, where not to enter, what is sensitive, or which env/deps are critical, use `08`.
+- Read the shape of the material before forcing destination.
+- Read the stability of the material before crossing authority into a stronger canonical file.
 - Be brief and concrete.
 
 ### Meta delivery rules

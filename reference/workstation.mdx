@@ -43,14 +43,14 @@ The interface is organised as follows:
 
 | Area | What it shows |
 |---|---|
-| **Topbar — Brand** | Signal Rail name, version meta, and subtitle |
-| **Topbar — Status frame** | Three status cards: host project, working object, active mode |
-| **Topbar — Actions** | Action buttons for session operations; folder path card showing the active instance path |
-| **Tabs bar** | Tab buttons for each canonical file (e.g., `00`, `01`, `02`, `03` …); fullscreen toggle |
-| **Utility row** | Global search field; write form selector for staging edits |
-| **Main surface** | The active tab's file content; entry viewer; staging and preview panels |
+| **Topbar — Brand** | Signal Rail name and subtitle |
+| **Topbar — Status frame** | Three status cards: Project Host, Focus, Source; plus a Folder Path card showing the active instance path |
+| **Topbar — Actions** | Action buttons: Open Folder, Import Snapshot, Export Snapshot, System Checks, Refresh |
+| **Tabs bar** | Four primary view tabs — Read, Write, System, Dashboard — plus a fullscreen toggle |
+| **Utility row** | Global search field; Current Focus input |
+| **Main surface** | The active view's content — file surfaces in Read, write form and preview panel in Write, runtime checks in System |
 
-The tab buttons use the file number prefix as the label. The active tab is highlighted with a blue-tinted border and background (`rgba(125,198,255, 0.17)`). The write form area provides a structured input for preparing new entries — particularly useful for append-driven files, where the entries zone contract must be respected.
+The active tab is highlighted with a blue-tinted border and background (`rgba(125,198,255, 0.17)`). The Write view provides a structured form for preparing new entries — particularly useful for append-driven files, where the entries zone contract must be respected.
 
 ## When to use the workstation vs direct text editing
 
